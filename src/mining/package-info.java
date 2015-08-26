@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+/**
+ * @author Meredith
+ *
+ */
+package mining;
