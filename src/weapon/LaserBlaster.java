@@ -1,44 +1,31 @@
 package weapon;
 
 import util.RandomGenerator;
+import game.Equippable;
+import game.EquippableType;
 import game.Item;
 import game.ItemType;
 import javafx.scene.paint.Color;
 
-public class LaserBlaster implements Item {
+public class LaserBlaster extends Equippable {
 
-	private ItemType itemType;
-	
-	private String name;
 	private double damage;
 	private double criticalChance;
 	private Color color;
 	private double range;
-	private int cost;
+
 	
-	private double heatRate;
-	private double coolRate;
-	
-	public LaserBlaster(String name, double damage, double critical, Color color, double range,
-			int cost, double heatRate, double coolRate) {
-		this.name = name;
+	public LaserBlaster(String name, int weight, double damage, double critical, Color color, double range) {
+		super(name, weight);
 		this.damage = damage;
 		this.criticalChance = critical;
 		this.color = color;
 		this.range = range;
-		this.cost = cost;
-		this.heatRate = heatRate;
-		this.coolRate = coolRate;
-		
-		itemType = ItemType.LASERBLASTER;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	
+	@Override
+	public EquippableType getEquippableType() {
+		return EquippableType.LASERBLASTER;
 	}
 
 	public double getDamage() {
@@ -65,30 +52,6 @@ public class LaserBlaster implements Item {
 		this.range = range;
 	}
 
-	public int getCost() {
-		return cost;
-	}
-
-	public void setCost(int cost) {
-		this.cost = cost;
-	}
-
-	public double getHeatRate() {
-		return heatRate;
-	}
-
-	public void setHeatRate(double heatRate) {
-		this.heatRate = heatRate;
-	}
-
-	public double getCoolRate() {
-		return coolRate;
-	}
-
-	public void setCoolRate(double coolRate) {
-		this.coolRate = coolRate;
-	}
-
 	public double getCriticalChance() {
 		return criticalChance;
 	}
@@ -110,13 +73,6 @@ public class LaserBlaster implements Item {
 		}
 		
 		return damage - RandomGenerator.instance.lowRandomInt((int) (damage * 0.5), 0) + critical;
-	}
-
-	/**
-	 * @return the itemType
-	 */
-	public ItemType getItemType() {
-		return itemType;
 	}
 	
 	

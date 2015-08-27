@@ -4,6 +4,7 @@ package game;
 
 import java.util.ArrayList;
 
+import economy.Trade;
 import faction.Faction;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;

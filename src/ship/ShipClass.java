@@ -21,7 +21,7 @@ public class ShipClass {
 	private String name;
 	private Hashtable<String, Integer> shipStats = new Hashtable<String, Integer>();
 	
-	public ShipClass(String name, int armor, int speed, int itemSlots, int avgCost, int fuelCapacity, int torpedoCapacity, int cargoSpace) {
+	public ShipClass(String name, int armor, int speed, int itemSlots, int avgCost, int fuelCapacity, int torpedoCapacity, int cargoLimit) {
 		this.name = name;
 		
 		shipStats.put("Armor", armor);
@@ -30,7 +30,7 @@ public class ShipClass {
 		shipStats.put("Average Cost", avgCost);
 		shipStats.put("Fuel Capacity", fuelCapacity);
 		shipStats.put("Max Torpedoes", torpedoCapacity);
-		shipStats.put("Cargo Space", cargoSpace);
+		shipStats.put("Cargo Limit", cargoLimit);
 	}
 	
 	public String getName() {
@@ -71,8 +71,8 @@ public class ShipClass {
 		return shipStats.get("Max Torpedoes");
 	}
 	
-	public int getCargoSpace() {
-		return shipStats.get("Cargo Space");
+	public int getCargoLimit() {
+		return shipStats.get("Cargo Limit");
 	}
 	
 	public void customStat(String stat, int value) {

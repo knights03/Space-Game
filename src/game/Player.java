@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 
+import cargo.NotEnoughSpace;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
@@ -16,6 +17,7 @@ import mining.MiningTool;
 import particle.LaserBurst;
 import particle.Projectile;
 import ship.Ship;
+import ship.ShipClasses;
 import unit.Combatant;
 import unit.Sprite;
 import util.Calc;
@@ -52,25 +54,34 @@ public class Player implements Sprite, Combatant {
 
 	public Player(String name) {
 		this.name = name;
+		
 		laserDamage = 50;
 		criticalChance = 5;
 		
 		fireList = new ArrayList<Projectile>();
+		
+		
+		
+		
+		
+		
+		ship = new Ship(ShipClasses.akira);
+		
 		
 		/*
 		 * MINING TOOL TEST BEGINNING
 		 */
 		
 		String miningName = "Proton Chisel";
+		int miningWeight = 1;
 		double miningPower = 1;
 		double miningRange = 50;
 		int miningCost = 100;
 		Color miningBeamColor = Color.AQUAMARINE;
 		
-		MiningTool protonChisel = new MiningTool(miningName, miningPower,
-				miningRange, miningCost, miningBeamColor);
+		MiningTool protonChisel = new MiningTool(miningName, miningWeight, miningPower,
+				miningRange, miningBeamColor);
 		
-		equipedMiningTool = protonChisel;
 
 		/*
 		 * MINING TOOL TEST END
@@ -81,6 +92,7 @@ public class Player implements Sprite, Combatant {
 		 */
 		
 		String blasterName = "Class 1 Defense Pulsor";
+		int blasterWeight = 1;
 		double blasterDamage = 25;
 		double blasterCritical = 10;
 		Color blasterColor = Color.LAWNGREEN;
@@ -89,19 +101,18 @@ public class Player implements Sprite, Combatant {
 		double blasterHeatRate = 5;
 		double blasterCoolRate = 3;
 		
-		LaserBlaster defensePulsor = new LaserBlaster(blasterName, blasterDamage,
-				blasterCritical, blasterColor, blasterRange, blasterCost,
-				blasterHeatRate, blasterCoolRate);
+		LaserBlaster defensePulsor = new LaserBlaster(blasterName, blasterWeight, blasterDamage,
+				blasterCritical, blasterColor, blasterRange);
 		
-		equipedLaserBlaster = defensePulsor;
 		
 		/*
 		 * LASER BLASTER TEST ENDING
 		 */
-		
-		items.add(equipedLaserBlaster);		
-		items.add(equipedMiningTool);
-		
+		try {
+		ship.equipItem(protonChisel);
+		} catch (NotEnoughSpace e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -247,6 +258,14 @@ public class Player implements Sprite, Combatant {
 		return game;
 	}
 
+	public Ship getShip() {
+		return ship;
+	}
+
+	public void setShip(Ship ship) {
+		this.ship = ship;
+	}
+
 	/**
 	 * @return the items
 	 */
@@ -339,9 +358,10 @@ public class Player implements Sprite, Combatant {
 		fireList.add(laserBurst);
 	}
 	
+	@Deprecated
 	public void addItem(Item item, boolean setEquiped) {
 		items.add(item);
-		
+		/*
 		if(setEquiped) {
 			switch(item.getItemType()) {
 			case MININGTOOL:
@@ -351,7 +371,7 @@ public class Player implements Sprite, Combatant {
 				setEquipedLaserBlaster((LaserBlaster) item);
 				break;
 			}
-		}
+		}*/
 	}
 
 

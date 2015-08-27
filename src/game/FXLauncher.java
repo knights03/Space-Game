@@ -1,6 +1,5 @@
 package game;
 
-import warehouse.*;
 
 import particle.LaserBurst;
 import particle.TorpedoBurst;
@@ -75,7 +74,7 @@ public class FXLauncher extends Application {
 		
 		
 		// Create a test unit heading southeast past the player
-		
+		/*
 		String blasterName = "Repeating Disruptor Cannon";
 		double blasterDamage = 500;
 		double blasterCritical = 10;
@@ -97,12 +96,12 @@ public class FXLauncher extends Application {
 		LaserBlaster repeatingCanon = new LaserBlaster(blasterName, blasterDamage,
 				blasterCritical, blasterColor, blasterRange, blasterCost,
 				blasterHeatRate, blasterCoolRate);
-		
+		*/
 		Unit testUnit = new Battleship("Warden Zeeb", game.getPlayer(), cor);
 		testUnit.setLocation(new Coord(7300, 7500));
 		testUnit.setDefense(30);
-		testUnit.addItem(repeatingCanon);
-		testUnit.addItem(ionDrill);
+		//testUnit.addItem(repeatingCanon);
+		//testUnit.addItem(ionDrill);
 		
 		/*
 		for(int i = 0; i < 2; i++) {

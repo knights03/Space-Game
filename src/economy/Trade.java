@@ -1,7 +1,9 @@
-package game;
+package economy;
 
 import java.util.ArrayList;
 
+import game.Item;
+import game.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -56,11 +58,11 @@ public class Trade {
 		double npcTradeLeniency = npc.getTradeLeniency();
 		
 		for(Item item : playerItems) {
-			playerItemsValue += item.getCost();
+			playerItemsValue += 12;
 		}
 		
 		for(Item item : npcItems) {
-			npcItemsValue =+ item.getCost();
+			npcItemsValue =+ 12;
 		}
 		
 		double itemsValueDifferencePercent = (Math.abs(playerItemsValue - npcItemsValue)/npcItemsValue)*100;

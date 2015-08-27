@@ -1,44 +1,29 @@
 package mining;
 
+import game.Equippable;
+import game.EquippableType;
 import game.Item;
 import game.ItemType;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-public class MiningTool implements Item {
+public class MiningTool extends Equippable {
 
-	private ItemType itemType;
-	
-	private String name;
-	
 	private double power;
 	private double range;
-	
-	private int cost;
-
 	private Color beamColor;
-	
-	public MiningTool() {
+
+	public MiningTool(String name, int weight, double power, double range, Color beamColor) {
 		
-	}
-	
-	public MiningTool(String name, double power, double range,
-			int cost, Color beamColor) {
-		
-		this.name = name;
+		super(name, weight);
 		this.power = power;
 		this.range = range;
-		this.cost = cost;
 		this.beamColor = beamColor;
-		
-		itemType = ItemType.MININGTOOL;
 	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
+	
+	@Override
+	public EquippableType getEquippableType() {
+		return EquippableType.MININGTOOL;
 	}
 
 	/**
@@ -54,21 +39,6 @@ public class MiningTool implements Item {
 	public double getRange() {
 		return range;
 	}
-
-	/**
-	 * @return the cost
-	 */
-	public int getCost() {
-		return cost;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	/**
 	 * @param power the power to set
 	 */
@@ -83,26 +53,10 @@ public class MiningTool implements Item {
 		this.range = range;
 	}
 
-	/**
-	 * @param cost the cost to set
-	 */
-	public void setCost(int cost) {
-		this.cost = cost;
-	}
 
 	public Color getBeamColor() {
 		return beamColor;
 	}
-	
-	@Override
-	public String toString() {
-		return name;
-	}
 
-	/**
-	 * @return the itemType
-	 */
-	public ItemType getItemType() {
-		return itemType;
-	}
+
 }

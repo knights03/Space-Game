@@ -1,34 +1,26 @@
 package ship;
 
+import game.Equippable;
+import game.EquippableType;
 import game.Item;
 import game.ItemType;
 
-public class Engine implements Item {
+public class Engine extends Equippable {
 	
-	private String name;
-	private int cost;
 	private int speedMultiplier;
+	
+	public Engine(String name, int weight, int speedMultiplier) {
+		super(name, weight);
+		this.speedMultiplier = speedMultiplier;
+	}
 
+	@Override
+	public EquippableType getEquippableType() {
+		return EquippableType.ENGINE;
+	}
 	
 	public int getSpeedMultiplier() {
 		return speedMultiplier;
-	}
-	
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public ItemType getItemType() {
-		// TODO Auto-generated method stub
-		return ItemType.ENGINE;
-	}
-
-	@Override
-	public int getCost() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

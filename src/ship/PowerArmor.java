@@ -1,37 +1,24 @@
 package ship;
 
+import game.Equippable;
+import game.EquippableType;
 import game.Item;
 import game.ItemType;
 
-public class PowerArmor implements Item {
-	
-	private String name;
-	private int cost;
+public class PowerArmor extends Equippable {
 	
 	private int armorRating;
 	
-	public PowerArmor(String name, int armorRating, int cost) {
-		this.name = name;
+	public PowerArmor(String name, int weight, int armorRating) {
+		super(name, weight);
 		this.armorRating = armorRating;
-		this.cost = cost;
 	}
 
 	@Override
-	public String getName() {
-		return name;
+	public EquippableType getEquippableType() {
+		return EquippableType.ARMOR;
 	}
 
-	@Override
-	public ItemType getItemType() {
-		return ItemType.ARMOR;
-	}
-
-	@Override
-	public int getCost() {
-		// TODO Auto-generated method stub
-		return cost;
-	}
-	
 	public int getArmorRating() {
 		return armorRating;
 	}

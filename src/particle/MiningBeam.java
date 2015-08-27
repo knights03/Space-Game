@@ -24,8 +24,7 @@ public class MiningBeam {
 		beam = new Line(game.getPlayer().getLocation().getX(), game.getPlayer().getLocation().getY(),
 				t.getX(), t.getY());
 		
-		beam.setStroke(game.getPlayer().getEquipedMiningTool().getBeamColor());
-		
+		beam.setStroke(game.getPlayer().getShip().equippedMiningTool().getBeamColor());
 		
 		
 		game.getWorldGroup().getChildren().add(beam);
