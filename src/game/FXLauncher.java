@@ -8,6 +8,7 @@ import unit.Battleship;
 import unit.Combatant;
 import unit.Unit;
 import util.GlobalVars;
+import util.RandomGenerator;
 import weapon.LaserBlaster;
 import faction.Faction;
 import javafx.application.Application;
@@ -171,10 +172,26 @@ public class FXLauncher extends Application {
 			
 		});
 		
+		TextNotifier textNotifier = new TextNotifier(3);
+
+		Button addText = new Button("Test Notifier");
+
+		addText.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				textNotifier.addText(String.format("%d", RandomGenerator.instance.getInt(10000)), RandomGenerator.instance.getColor());
+			}
+
+		});
+		
 		// Add buttons to left tool box
 		game.getLeftToolBox().getChildren().add(showMap);
 		game.getLeftToolBox().getChildren().add(showInventory);
 		game.getLeftToolBox().getChildren().add(playerChangeCourse);
+		game.getLeftToolBox().getChildren().add(addText);
+		game.getLeftToolBox().getChildren().add(textNotifier.getNotifierText());
 
 		primaryStage.show();
 		//testUnit.run();

@@ -71,6 +71,18 @@ public class LaserBurst extends Projectile {
 			
 		});
 		
+		
+		
+		new Thread(collisionDetect(sprite)).start();
+		
+	}
+	
+	/**
+	 * 
+	 * @param sprite
+	 * @return
+	 */
+	private Task<Void> collisionDetect(Shape sprite) {
 		Task<Void> collisionDetection = new Task<Void>() {
 
 			@Override
@@ -94,8 +106,7 @@ public class LaserBurst extends Projectile {
 			
 		};
 		
-		new Thread(collisionDetection).start();
-		
+		return collisionDetection;
 	}
 	
 	public void hit() {

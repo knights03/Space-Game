@@ -1,40 +1,49 @@
 package game;
 
-import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class TextNotifier {
 
-	private Group textGroup;
-	private Label line1, line2, line3;
+	private int numberOfLines;
 	
-	private boolean line1Busy = false;
-	private boolean line2Busy = false;
-	private boolean line3Busy = false;
+	private Label[] textLines;
 	
-	public TextNotifier() {
+	private VBox notifierText = new VBox();
+	
+	public TextNotifier(int lines) {
+		numberOfLines = lines;
 		
-		line1 = new Label();
-		line2 = new Label();
-		line3 = new Label();
+		textLines = new Label[numberOfLines];
 		
-		textGroup = new Group(line1, line2, line3);
-	}
-	
-	public void add(String text) {
-		if(line3.getText() != "") {
-			line1.setText(line2.getText());
-			line2.setText(line3.getText());
-			line3.setText(text);
+		for(int i = 0; i < numberOfLines; i++) {
+			textLines[i] = new Label();
+			notifierText.getChildren().add(textLines[i]);
 		}
 	}
 	
-	public void add(String text, Color color) {
-		//TODO add text to notifier of specified color
+	private void shiftTextDown() {
+		for(int i = numberOfLines-1; i >= 1; i--) {
+				textLines[i].setText(textLines[i-1].getText());
+				textLines[i].setTextFill(textLines[i-1].getTextFill());
+			
+		}
 	}
 	
-	private void update() {
-		//TODO scroll everything up
+	public void addText(String text) {
+		addText(text, Color.WHITE);
 	}
+	
+	public void addText(String text, Color color) {
+		shiftTextDown();
+		textLines[0].setText(text);
+		textLines[0].setTextFill(color);
+	}
+	
+	public VBox getNotifierText() {
+		return notifierText;
+	}
+	
+	
 }

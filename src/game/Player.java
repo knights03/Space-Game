@@ -241,7 +241,7 @@ public class Player implements Sprite, Combatant {
 	}
 
 	public LaserBlaster getEquipedLaserBlaster() {
-		return equipedLaserBlaster;
+		return ship.equippedLaserBlaster();
 	}
 
 	public void setEquipedLaserBlaster(LaserBlaster equipedLaserBlaster) {
@@ -355,11 +355,21 @@ public class Player implements Sprite, Combatant {
 
 	}
 	
+	/**
+	 * Creates a laser burst originating from the player in the direction of the passed x, y coordinates.
+	 * @param game The game object
+	 * @param x The x location of the burst target
+	 * @param y The y location of the burst target
+	 */
 	public void fireLaser(Game game, double x, double y) {
-		LaserBurst laserBurst = new LaserBurst(this, new Coord(x, y), game);
-		
-		game.getWorldGroup().getChildren().add(laserBurst.getSprite());
-		fireList.add(laserBurst);
+
+		if(ship.equippedLaserBlaster() != null) {
+
+			LaserBurst laserBurst = new LaserBurst(this, new Coord(x, y), game);
+
+			game.getWorldGroup().getChildren().add(laserBurst.getSprite());
+			fireList.add(laserBurst);
+		}
 	}
 	
 	@Deprecated

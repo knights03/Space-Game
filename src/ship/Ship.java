@@ -12,6 +12,7 @@ import game.EquippableType;
 import game.Item;
 import game.ItemType;
 import mining.MiningTool;
+import weapon.LaserBlaster;
 
 public class Ship {
 	
@@ -110,6 +111,23 @@ public class Ship {
 		return null;
 	}
 	
+	/**
+	 * Returns the equipped LaserBlaster, if one is equipped. Cycles through the equipped items list and returns an equipped laser blaster. If
+	 * none is found returns null
+	 * @return The equipped laser blaster, or null if none is equipped
+	 */
+	public LaserBlaster equippedLaserBlaster() {
+		// Cycle through equipped item, looking for a laser blaster, return it if found
+		for(Equippable item : equippedItems) {
+			if(item.getEquippableType() == EquippableType.LASERBLASTER) 
+				return (LaserBlaster) item;
+		}
+
+		// No laser blaster found, return null
+		return null;
+
+	}
+
 	/**
 	 * Calculates remaining cargo space. Loops through all items, adds up their combined weight, then subtracts it from
 	 * ShipClass cargo limit
