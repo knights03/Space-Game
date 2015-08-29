@@ -651,6 +651,47 @@ public class Game {
 	}
 	
 	/**
+	 * Generates the player inventory list window.
+	 * @return
+	 */
+	public Stage inventoryWindow() {
+		Stage inventoryWindow = new Stage();
+		
+
+		inventoryWindow.setTitle(GlobalVars.UNIT_INFO_WINDOW_TITLE);
+		inventoryWindow.setHeight(GlobalVars.UNIT_INFO_WINDOW_HEIGHT);
+		inventoryWindow.setWidth(GlobalVars.UNIT_INFO_WINDOW_WIDTH);
+		
+		VBox cargoList = new VBox();
+		VBox equippableList = new VBox();
+		HBox lists = new HBox(equippableList, cargoList);
+		Group inventoryLists = new Group(lists);
+		
+		Scene inventoryListsScene = new Scene(inventoryLists);
+		inventoryWindow.setScene(inventoryListsScene);
+		
+		int numberOfItems = player.getShip().getItems().size();
+		Label[] itemListLabelArray = new Label[numberOfItems];
+		
+		for(int i = 0; i < numberOfItems; i++) {
+			itemListLabelArray[i] = new Label(player.getShip().getItems().get(i).getName());
+			equippableList.getChildren().add(itemListLabelArray[i]);
+		}
+		/*
+		int numberOfCargo = player.getShip().getCargo().size();
+		Label[] cargoListLabelArray = new Label[numberOfCargo];
+		
+		for(int i = 0; i < numberOfCargo; i++) {
+			cargoListLabelArray[i] = new Label(player.getShip().getCargo().get(i).getName());
+			cargoList.getChildren().add(cargoListLabelArray[i]);
+		}*/
+		
+		
+		return inventoryWindow;
+		
+	}
+	
+	/**
 	 * Removes a specific node from the world group
 	 * @param node Which node to remove
 	 */

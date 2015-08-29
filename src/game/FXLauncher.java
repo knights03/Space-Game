@@ -128,14 +128,14 @@ public class FXLauncher extends Application {
 		//game.getWorldGroup().setTranslateY(-1*(game.getPlayer().getLocation().getY()) + GameConstants.MAIN_WINDOW_HEIGHT/2);
 		
 		// Change course button
-		Button changeCourse = new Button("Change course");
+		Button showInventory = new Button("Show Inventory");
 		
-		changeCourse.setOnAction(new EventHandler<ActionEvent>() {
+		showInventory.setOnAction(new EventHandler<ActionEvent>() {
 			
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				
+				game.inventoryWindow().show();
 			}
 		});
 
@@ -173,7 +173,7 @@ public class FXLauncher extends Application {
 		
 		// Add buttons to left tool box
 		game.getLeftToolBox().getChildren().add(showMap);
-		game.getLeftToolBox().getChildren().add(changeCourse);
+		game.getLeftToolBox().getChildren().add(showInventory);
 		game.getLeftToolBox().getChildren().add(playerChangeCourse);
 
 		primaryStage.show();

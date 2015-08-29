@@ -2,6 +2,7 @@ package ship;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import cargo.Cargo;
 import cargo.CargoType;
@@ -161,7 +162,44 @@ public class Ship {
 				cargo.add(Cargo.newCargo(type, cargoAmounts.get(type)));
 			}
 		}
+	
 	}
+
+	private void organizeItemsCargo() {
+		Hashtable<CargoType, Integer> cargoAmounts = new Hashtable<CargoType, Integer>();
+
+		// Initialize hashmap with all CargoType amounts set to zero
+		for(CargoType type : CargoType.values()) {
+			cargoAmounts.put(type, 0);
+		}
+
+		// Loop through each cargo item. For each item loop through each CargoType to see if it matches with that Cargo
+		// item. If it does increment the hashmap index
+		for(Item item : items) { 
+			if(item.getItemType() == ItemType.CARGO) {
+				for(CargoType type : CargoType.values()) {
+					if(((Cargo) item).getCargoType() == type) {
+						int currentAmount = cargoAmounts.get(type);
+						cargoAmounts.put(type, currentAmount + ((Cargo) item).getAmount());
+					}
+				}
+			}
+		}
+
+		// Reset the Cargo list field
+		cargo = new ArrayList<Cargo>();
+
+		// Loop through each CargoType
+		for(CargoType type : CargoType.values()) {
+			// If the CargoType's entry in the hashmap is greater than 0, add a new
+			// Cargo object to the cargo list field
+			if(cargoAmounts.get(type) > 0) {
+				cargo.add(Cargo.newCargo(type, cargoAmounts.get(type)));
+			}
+		}
+
+	}
+	
 	
 	/**
 	 * Loads an item into the ships cargo bay. Compares the calculated remaining cargo space using
@@ -203,6 +241,36 @@ public class Ship {
 			throw new NotEnoughSpace("Too many equipped items");
 		
 	
+	}
+
+
+	public ArrayList<Item> getItems() {
+		return items;
+	}
+
+
+	public ArrayList<Equippable> getEquippedItems() {
+		return equippedItems;
+	}
+
+
+	public ArrayList<Cargo> getCargo() {
+		return cargo;
+	}
+
+
+	public void setItems(ArrayList<Item> items) {
+		this.items = items;
+	}
+
+
+	public void setEquippedItems(ArrayList<Equippable> equippedItems) {
+		this.equippedItems = equippedItems;
+	}
+
+
+	public void setCargo(ArrayList<Cargo> cargo) {
+		this.cargo = cargo;
 	}
 	
 	

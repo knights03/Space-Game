@@ -108,6 +108,10 @@ public class Player implements Sprite, Combatant {
 		/*
 		 * LASER BLASTER TEST ENDING
 		 */
+		
+
+		ship.loadItem(protonChisel);
+		
 		try {
 		ship.equipItem(protonChisel);
 		} catch (NotEnoughSpace e) {
