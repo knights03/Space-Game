@@ -8,6 +8,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.concurrent.Task;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.util.Duration;
@@ -34,7 +35,7 @@ public class Player implements Sprite, Combatant {
 	private Location destination;
 	private TranslateTransition movement = new TranslateTransition();
 	
-	private Polygon sprite;
+	private ImageView sprite;
 	
 	private double laserDamage;
 	private double criticalChance;
@@ -52,8 +53,9 @@ public class Player implements Sprite, Combatant {
 	private LaserBlaster equipedLaserBlaster;
 
 
-	public Player(String name) {
+	public Player(String name, Game game) {
 		this.name = name;
+		this.game = game;
 		
 		laserDamage = 50;
 		criticalChance = 5;
@@ -65,7 +67,7 @@ public class Player implements Sprite, Combatant {
 		
 		
 		
-		ship = new Ship(ShipClasses.akira);
+		ship = new Ship(ShipClasses.akira, game);
 		
 		
 		/*
@@ -107,16 +109,23 @@ public class Player implements Sprite, Combatant {
 		
 		/*
 		 * LASER BLASTER TEST ENDING
-		 */
+		
 		
 
 		ship.loadItem(protonChisel);
-		
+		ship.loadItem(defensePulsor);
+
 		try {
-		ship.equipItem(protonChisel);
+			ship.equipItem(protonChisel);
 		} catch (NotEnoughSpace e) {
 			e.printStackTrace();
 		}
+
+		try {
+			ship.equipItem(defensePulsor);
+		} catch (NotEnoughSpace e) {
+			e.printStackTrace();
+		}*/
 	}
 
 	/**
@@ -170,6 +179,7 @@ public class Player implements Sprite, Combatant {
 	}
 
 	public Node getSprite() {
+		/*
 		sprite = new Polygon();
 
 		sprite.getPoints().addAll(new Double[] {
@@ -180,7 +190,9 @@ public class Player implements Sprite, Combatant {
 
 		sprite.setFill(Color.YELLOW);
 		//sprite.setTranslateZ(1000);
-		sprite.toFront();
+		sprite.toFront();*/
+		
+		sprite = ship.getShipClass().getSprite();
 
 		return sprite;
 	}
@@ -328,6 +340,9 @@ public class Player implements Sprite, Combatant {
 
 		};
 		
+		// Rotate sprite to face new direction
+		ship.getShipClass().getSprite().setRotate(Math.toDegrees(Calc.instance.getAngle(location, destination))-90);
+		
 		// Calculate the distance between location and destination
 		double distanceToDestination = Calc.instance.getDistance(location.getX(), location.getY(),
 				destination.getX(), destination.getY());
@@ -369,6 +384,8 @@ public class Player implements Sprite, Combatant {
 
 			game.getWorldGroup().getChildren().add(laserBurst.getSprite());
 			fireList.add(laserBurst);
+		} else {
+			game.getTextNotifier().addText("No Laser Blaster equipped!", Color.RED);
 		}
 	}
 	

@@ -27,6 +27,13 @@ public class Calc {
 		return Math.sqrt((x*x) + (y*y));
 	}
 	
+	public double getAngle(Location pointA, Location pointB) {
+		double xDistance = -1*(pointB.getX() - pointA.getX());
+		double yDistance =  -1*(pointB.getY() - pointA.getY());
+		
+		return Math.atan2(yDistance, xDistance);
+	}
+	
 	
 	public Location angleDestination(Location source, double fireAngle, double distance) {
 		double rise = Math.sin(fireAngle)*distance;

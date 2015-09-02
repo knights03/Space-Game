@@ -1,3 +1,13 @@
-/ship/
-/game/
+/planets/
+/ships/
+/location/
+/mining/
+/mission/
 /particle/
+/resource/
+/settlement/
+/ship/
+/unit/
+/util/
+/weapon/
+/game/

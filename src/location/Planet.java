@@ -1,7 +1,11 @@
 package location;
 
+import java.io.File;
+
 import game.World;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -17,7 +21,7 @@ public class Planet extends Location {
 	private String name;
 	private World world;
 	
-	private Shape sprite;
+	private ImageView sprite;
 	private double size;
 	private Color color;
 	
@@ -28,8 +32,19 @@ public class Planet extends Location {
 		
 		
 		size = RandomGenerator.instance.getDouble(200, 100);
-		color = RandomGenerator.instance.getColor();
-		sprite = new Circle(size, color);
+
+		StringBuilder planetImagePath = new StringBuilder("file:images/planets/planet");
+		
+		int numPlanetImages = 10;
+		
+		planetImagePath.append(RandomGenerator.instance.getInt(numPlanetImages));
+		planetImagePath.append(".png");
+		
+		Image image = new Image(planetImagePath.toString());
+		
+		sprite = new ImageView(image);
+		sprite.setScaleX(size/30);
+		sprite.setScaleY(size/30);
 		
 		setX(RandomGenerator.instance.getDouble(world.getW(), 0, GlobalVars.MIN_LOCATION_SEPERATION));
 		setY(RandomGenerator.instance.getDouble(world.getH(), 0, GlobalVars.MIN_LOCATION_SEPERATION));
@@ -71,8 +86,6 @@ public class Planet extends Location {
 	 */
 	public void setSize(double size) {
 		this.size = size;
-		((Circle) sprite).setRadius(size);
-		//sprite = new Circle(size, color);
 	}
 
 	/**
@@ -80,7 +93,6 @@ public class Planet extends Location {
 	 */
 	public void setColor(Color color) {
 		this.color = color;
-		sprite.setFill(color);
 	}
 	
 	@Override

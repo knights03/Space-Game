@@ -47,8 +47,8 @@ public class Battleship extends Unit implements Sprite, Combatant {
 		
 		
 		Shape sprite = new Circle(30);
-		sprite.setFill(getUnitFaction().getPrimaryColour());
-		sprite.setStroke(getUnitFaction().getSecondaryColour());
+		sprite.setFill(getUnitFaction().getPrimaryColor());
+		sprite.setStroke(getUnitFaction().getSecondaryColor());
 		sprite.setStrokeWidth(2);
 		
 		setSprite(sprite);

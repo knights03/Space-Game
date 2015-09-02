@@ -139,6 +139,8 @@ public class AsteroidIron extends Asteroid implements Sprite {
 						}
 					}
 
+				} else {
+					game.getTextNotifier().addText("No Mining Tool equipped!", Color.RED);
 				}
 			}
 
@@ -174,6 +176,7 @@ public class AsteroidIron extends Asteroid implements Sprite {
 			
 			getGame().removeNode(getSprite());
 			getGame().getPlayer().getShip().loadItem(new Iron(getYield()));
+			getGame().getTextNotifier().addText(String.format("%dt of Iron received", getYield()));
 		}
 	}
 	

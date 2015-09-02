@@ -78,9 +78,14 @@ public class LaserBurst extends Projectile {
 	}
 	
 	/**
+	 * Creates a Task Thread that detects if the Laser Burst has collided with any combatants. While the Laser Burst
+	 * animation is running it constantly cycles through all combatants in the game objects combatants list and checks
+	 * if the Laser Burst's sprite boundaries have collided with any of the combatant's sprite boundaries. If a collision
+	 * occurs hit() is called, creating a little explosion animation and combatant.laserHit() is called, executing
+	 * whatever happens with a laser burst hits that combatant (in most cases, damage)
 	 * 
-	 * @param sprite
-	 * @return
+	 * @param sprite The Laser Burst sprite
+	 * @return The collision detection task to be run in the constructor
 	 */
 	private Task<Void> collisionDetect(Shape sprite) {
 		Task<Void> collisionDetection = new Task<Void>() {

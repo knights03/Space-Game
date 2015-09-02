@@ -57,6 +57,9 @@ public class Game {
 	private Group worldGroup;
 	private VBox leftToolBox;
 	
+	//Left toolbox elements
+	private TextNotifier textNotifier = new TextNotifier(GlobalVars.TEXT_NOTIFIER_LINES);
+	
 	private Rectangle clickArea = new Rectangle();
 	
 	private TranslateTransition screenMove;
@@ -72,8 +75,7 @@ public class Game {
 	 * @param worldName The name of the world to be created
 	 */
 	public Game(String playerName, String worldName) {
-		player = new Player(playerName);
-		player.setGame(this);
+		player = new Player(playerName, this);
 		world = new World(worldName);
 		
 		screenMove = new TranslateTransition();
@@ -132,6 +134,20 @@ public class Game {
 		this.leftToolBox = leftToolBox;
 	}
 	
+	/**
+	 * @return the textNotifier
+	 */
+	public TextNotifier getTextNotifier() {
+		return textNotifier;
+	}
+
+	/**
+	 * @param textNotifier the textNotifier to set
+	 */
+	public void setTextNotifier(TextNotifier textNotifier) {
+		this.textNotifier = textNotifier;
+	}
+
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
@@ -236,6 +252,9 @@ public class Game {
 		ui.getChildren().add(worldGroup);
 		ui.getChildren().add(leftToolBox);
 		
+		// Add nodes
+		leftToolBox.getChildren().add(textNotifier.getNotifierText());
+		
 		// Set the stages scene to the game screen
 		gameScreen = new Scene(ui, Color.BLACK);
 		primaryStage.setScene(gameScreen);
@@ -255,6 +274,7 @@ public class Game {
 	 * as the final product should be all pre-defined planets and clusters
 	 */
 	public void generateStoryWorld() {
+		worldGroup.getChildren().clear();
 		
 		world.setH(12000);
 		world.setW(12000);

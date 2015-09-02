@@ -9,6 +9,7 @@ import cargo.CargoType;
 import cargo.NotEnoughSpace;
 import game.Equippable;
 import game.EquippableType;
+import game.Game;
 import game.Item;
 import game.ItemType;
 import mining.MiningTool;
@@ -26,6 +27,8 @@ public class Ship {
 	 * -
 	 */
 
+	private Game game;
+	
 	private String name;
 	private ShipClass shipClass;
 	
@@ -38,8 +41,9 @@ public class Ship {
 	
 	private int cargoSpaceRemaining;
 	
-	public Ship(ShipClass shipClass) {
+	public Ship(ShipClass shipClass, Game game) {
 		this.shipClass = shipClass;
+		this.game = game;
 		fuel = shipClass.getFuelCapacity();
 		cargoSpaceRemaining = shipClass.getCargoLimit();
 	}
@@ -253,8 +257,10 @@ public class Ship {
 	 * @throws NotEnoughSpace
 	 */
 	public void equipItem(Equippable item) throws NotEnoughSpace {
-		if(equippedItems.size() < shipClass.getItemSlots()) 
+		if(equippedItems.size() < shipClass.getItemSlots()) {
 			equippedItems.add(item);
+			game.getTextNotifier().addText(String.format("%s successfully equipped", item.getName()));
+		}
 		else
 			throw new NotEnoughSpace("Too many equipped items");
 		

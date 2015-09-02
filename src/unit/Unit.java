@@ -15,6 +15,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import location.Coord;
 import location.Location;
@@ -91,7 +93,8 @@ public abstract class Unit implements Sprite {
 				double newY = event.getSceneY()+(player.getLocation().getY()) - GlobalVars.MAIN_WINDOW_HEIGHT/2;
 
 				if(event.isControlDown() == false && event.isShiftDown() == false){
-					player.getGame().unitScreen(Unit.this).show();
+					//player.getGame().unitScreen(Unit.this).show();
+					die();
 				} else if(event.isControlDown() == true) {
 					//game.getWorldGroup().getChildren().add(new LaserBurst(game.getPlayer(),
 					//		new Coord(newX, newY)).getSprite());
@@ -531,7 +534,17 @@ public abstract class Unit implements Sprite {
 	public void die() {
 		//TO BE OVERWRITTEN
 		System.out.println("DEAD");
-		player.getGame().removeNode(getSprite());
+		//player.getGame().getWorldGroup().getChildren().remove(getSprite());
+		
+		if(player.getGame().getWorldGroup().getChildren().contains(getSprite())) {
+			System.out.println("Contains");
+		} else {
+			System.out.println("Does not contain");
+		}
+		
+		
+		
+		setSprite(new Circle(10, Color.RED));
 	}
 	
 	

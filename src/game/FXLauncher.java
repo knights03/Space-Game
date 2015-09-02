@@ -10,6 +10,7 @@ import unit.Unit;
 import util.GlobalVars;
 import util.RandomGenerator;
 import weapon.LaserBlaster;
+import cargo.NotEnoughSpace;
 import faction.Faction;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -140,11 +141,6 @@ public class FXLauncher extends Application {
 			}
 		});
 
-		// Testing click coordinates
-		Label click = new Label();
-		click.setTextFill(Color.WHITE);
-		game.getLeftToolBox().getChildren().add(click);
-
 		// Show map button
 		Button showMap = new Button("Show map");
 	
@@ -153,7 +149,6 @@ public class FXLauncher extends Application {
 			@Override
 			public void handle(ActionEvent arg0) {
 				game.showMap(game.getWorld());
-				click.setText(game.getPlayer().toString());
 				
 			}
 			
@@ -172,7 +167,7 @@ public class FXLauncher extends Application {
 			
 		});
 		
-		TextNotifier textNotifier = new TextNotifier(3);
+		
 
 		Button addText = new Button("Test Notifier");
 
@@ -181,7 +176,33 @@ public class FXLauncher extends Application {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				textNotifier.addText(String.format("%d", RandomGenerator.instance.getInt(10000)), RandomGenerator.instance.getColor());
+				//textNotifier.addText(String.format("%d", RandomGenerator.instance.getInt(10000)), RandomGenerator.instance.getColor());
+			}
+
+		});
+		
+		Button equipDefenseBlaster = new Button("Equip Defense Blaster");
+
+		equipDefenseBlaster.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				try {
+					game.getPlayer().getShip().equipItem(GameItems.class1DefensePulsor);
+				} catch (NotEnoughSpace e) {
+					game.getTextNotifier().addText("Too many equipped items!", Color.RED);
+				}
+			}
+
+		});
+		
+		Button regenWorld = new Button("Generate new World");
+
+		regenWorld.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				game.generateStoryWorld();
 			}
 
 		});
@@ -191,7 +212,9 @@ public class FXLauncher extends Application {
 		game.getLeftToolBox().getChildren().add(showInventory);
 		game.getLeftToolBox().getChildren().add(playerChangeCourse);
 		game.getLeftToolBox().getChildren().add(addText);
-		game.getLeftToolBox().getChildren().add(textNotifier.getNotifierText());
+		game.getLeftToolBox().getChildren().add(equipDefenseBlaster);
+		game.getLeftToolBox().getChildren().add(regenWorld);
+		//game.getLeftToolBox().getChildren().add(textNotifier.getNotifierText());
 
 		primaryStage.show();
 		//testUnit.run();
@@ -211,7 +234,6 @@ public class FXLauncher extends Application {
 				double newY = event.getSceneY()+(game.getPlayer().getLocation().getY()) - GlobalVars.MAIN_WINDOW_HEIGHT/2;
 				
 				if(event.isControlDown() == false && event.isShiftDown() == false){
-					click.setText(String.format("%.1f, %.1f", newX, newY));
 					game.playerMove(event.getSceneX(), event.getSceneY());
 				} else if(event.isControlDown() == true) {
 					//game.getWorldGroup().getChildren().add(new LaserBurst(game.getPlayer(),
@@ -231,25 +253,7 @@ public class FXLauncher extends Application {
 			
 		});
 		
-		/*
-		 * COOLDOWN TIMER TEST
-		 */
-		
-		ProgressBar laserCoolDown = new ProgressBar();
-		
-		
-		
-		game.getGameScreen().setOnKeyPressed(new EventHandler<KeyEvent>() {
 
-			@Override
-			public void handle(KeyEvent ke) {
-				// TODO Auto-generated method stub
-				if(ke.getCharacter() == "f") {
-					click.setText("Spacebar");
-				}
-			}
-			
-		});
 		
 		// Task tests
 		Task<Void> loopTest = new Task() {
