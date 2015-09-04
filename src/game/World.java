@@ -29,18 +29,6 @@ public class World {
 	
 	public World(String name, int h, int w, int planetNum, int stationNum, int outpostNum) {
 		this(name, h, w);
-		
-		for(int i = 0; i < planetNum; i++) {
-			locations.add(LocationGenerator.instance.newLocation(LocationGenerator.LocationEnum.PLANET, this));
-		}
-		
-		for(int i = 0; i < stationNum; i++) {
-			locations.add(LocationGenerator.instance.newLocation(LocationGenerator.LocationEnum.STATION, this));
-		}
-		
-		for(int i = 0; i < outpostNum; i++) {
-			locations.add(LocationGenerator.instance.newLocation(LocationGenerator.LocationEnum.OUTPOST, this));
-		}
 	}
 	
 	public double getH() {
@@ -53,13 +41,6 @@ public class World {
 	
 	public void addLocation(Location location) {
 		locations.add(location);
-	}
-	
-	public void addCluster(double x1, double y1, double x2, double y2,
-			int planetNum, int stationNum, int outpostNum) {
-		
-		locations.addAll(LocationGenerator.instance.locationCluster
-				(x1, y1, x2, y2, planetNum, stationNum, outpostNum, this));
 	}
 	
 	public ArrayList<Location> getLocations() {

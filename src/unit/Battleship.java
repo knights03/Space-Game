@@ -8,6 +8,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import location.Coord;
 import particle.TorpedoBurst;
+import game.Game;
 import game.Player;
 import faction.Faction;
 import util.GlobalVars;
@@ -34,9 +35,9 @@ public class Battleship extends Unit implements Sprite, Combatant {
 	public static final int MIN_TORPEDO = 5;
 
 	
-	public Battleship(Player player, Faction faction) {
+	public Battleship(Player player, Faction faction, Game game) {
 		
-		super(player, faction);
+		super(player, faction, game);
 		
 		setUnitType(UnitType.BATTLESHIP);
 		
@@ -81,8 +82,8 @@ public class Battleship extends Unit implements Sprite, Combatant {
 		sprite.setOnMouseClicked(getUnitClick());
 	}
 	
-	public Battleship(String name, Player player, Faction faction) {
-		this(player, faction);
+	public Battleship(String name, Player player, Faction faction, Game game) {
+		this(player, faction, game);
 		
 		setName(name);
 	}

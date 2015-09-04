@@ -261,7 +261,7 @@ public class Game {
 		
 		// Set up camera
 		fov.setNearClip(0.1);
-		fov.setFarClip(2000.0);
+		fov.setFarClip(10000.0);
 		fov.setFieldOfView(35);
 		gameScreen.setCamera(fov);
 		
@@ -279,8 +279,8 @@ public class Game {
 		world.setH(12000);
 		world.setW(12000);
 		
-		world.addCluster(5000, 1000, 11000, 5000, 5, 1, 10);
-		world.addCluster(1000, 5000, 11000, 11000, 15, 2, 20);
+		//world.addCluster(5000, 1000, 11000, 5000, 5, 1, 10);
+		//world.addCluster(1000, 5000, 11000, 11000, 15, 2, 20);
 		
 		
 
@@ -291,7 +291,7 @@ public class Game {
 		clickArea.setWidth(world.getW());
 		clickArea.setHeight(world.getH());
 		clickArea.setFill(Color.TURQUOISE);
-		clickArea.setOpacity(0);
+		clickArea.setOpacity(GlobalVars.CLICK_AREA_OPACITY);
 		
 		worldGroup.getChildren().add(clickArea);
 		
@@ -302,11 +302,11 @@ public class Game {
 		
 		
 		// Test planet
-		Planet startPlanet = new Planet("Prison World 327", world);
-		startPlanet.setX(7700);
-		startPlanet.setY(7700);
-		startPlanet.setSize(350);
-		startPlanet.setColor(Color.DARKBLUE);
+		Planet startPlanet = new Planet("Tavistock", this, world);
+		startPlanet.setX(1500);
+		startPlanet.setY(10000);
+		startPlanet.setSize(3);
+		//startPlanet.setColor(Color.DARKBLUE);
 		
 		world.addLocation(startPlanet);
 
@@ -323,7 +323,7 @@ public class Game {
 		System.out.println();
 
 		// Add the player
-		player.setLocation(new Coord(7550, 7570));
+		player.setLocation(new Coord(1250, 9000));
 		player.setSpeed(300);
 
 		Node playerNode = player.getSprite();

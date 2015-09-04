@@ -2,6 +2,7 @@ package util;
 
 import java.util.ArrayList;
 
+import game.Game;
 import game.World;
 import location.Location;
 import location.Outpost;
@@ -16,27 +17,27 @@ public class LocationGenerator {
 		PLANET, STATION, OUTPOST;
 	}
 	
-	public Location newLocation(LocationEnum locationType, World world) {
+	public Location newLocation(LocationEnum locationType, Game game, World world) {
 		switch(locationType) {
 		case PLANET:
-			return new Planet(world);
+			return new Planet(game, world);
 		case STATION:
 			return new Station(world);
 		case OUTPOST:
 			return new Outpost(world);
 		default:
-			return new Planet(world);
+			return new Planet(game, world);
 		}
 	}
 	
 	public ArrayList<Location> locationCluster(double x1, double y1, double x2, double y2,
-			int planetNum, int stationNum, int outpostNum, World world) {
+			int planetNum, int stationNum, int outpostNum, Game game, World world) {
 		
 		ArrayList<Location> newLocationCluster = new ArrayList<>();
 		Location newLocation;
 		
 		for(int i = 0; i < planetNum; i++) {
-			newLocation = new Planet(world);
+			newLocation = new Planet(game, world);
 			newLocation.setX(RandomGenerator.instance.getDouble(x2, x1, 12));
 			newLocation.setY(RandomGenerator.instance.getDouble(y2, y1, 12));
 			

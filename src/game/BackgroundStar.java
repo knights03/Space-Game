@@ -14,10 +14,10 @@ public class BackgroundStar {
 		x = RandomGenerator.instance.getDouble(game.getWorld().getW());
 		y = RandomGenerator.instance.getDouble(game.getWorld().getH());
 		
-		sprite = new Circle(RandomGenerator.instance.getDouble(4), Color.WHITE);
+		sprite = new Circle(RandomGenerator.instance.getDouble(10), Color.WHITE);
 		sprite.setTranslateX(x);
 		sprite.setTranslateY(y);
-		sprite.setTranslateZ(1000);
+		sprite.setTranslateZ(10000);
 		sprite.toBack();
 	}
 

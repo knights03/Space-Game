@@ -13,6 +13,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -62,6 +63,7 @@ public abstract class Unit implements Sprite {
 	private ArrayList<Projectile> fireList = new ArrayList<Projectile>();
 	
 	private Player player;
+	private Game game;
 	
 	private LaserBlaster equipedLaserBlaster;
 	
@@ -76,11 +78,12 @@ public abstract class Unit implements Sprite {
 	
 	private ArrayList<Item> items = new ArrayList<Item>();
 	
-	public Unit(Player player, Faction faction){
+	public Unit(Player player, Faction faction, Game game){
 		name = String.format("Unit%d", unitID);
 		unitID++;
 		this.player = player;
 		this.unitFaction = faction;
+		this.game = game;
 		
 		unitClick = new EventHandler<MouseEvent>() {
 
@@ -107,6 +110,8 @@ public abstract class Unit implements Sprite {
 			}
 
 		};
+		
+		
 		
 		setTradeLeniency(10);
 		
@@ -383,6 +388,26 @@ public abstract class Unit implements Sprite {
 	 */
 	public void setSprite(Node sprite) {
 		this.sprite = sprite;
+		
+		sprite.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				game.getGameScreen().setCursor(Cursor.CROSSHAIR);
+			}
+			
+		});
+		
+		sprite.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				game.getGameScreen().setCursor(Cursor.DEFAULT);
+			}
+			
+		});
 	}
 	/**
 	 * @param movement the movement to set

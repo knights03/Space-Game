@@ -18,6 +18,8 @@ public class GlobalVars {
 	public static double MAIN_WINDOW_WIDTH = 1480;
 	
 	public static int TEXT_NOTIFIER_LINES = 4;
+	
+	public static double CLICK_AREA_OPACITY = 0;
 
 	
 	public static String MAP_WINDOW_TITLE = "Galactic Map";
@@ -36,6 +38,9 @@ public class GlobalVars {
 	public static Color UNIT_INFO_WINDOW_BG_COLOUR = Color.rgb(7, 5, 38);
 	
 	public static double MIN_LOCATION_SEPERATION = 12;
+	
+	public static String PLANET_SPRITE_PATH = "file:images/planets/";
+	public static String SHIP_SPRITE_PATH = "file:images/ships/";
 
 	
 }

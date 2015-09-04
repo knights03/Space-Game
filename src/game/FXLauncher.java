@@ -99,8 +99,8 @@ public class FXLauncher extends Application {
 				blasterCritical, blasterColor, blasterRange, blasterCost,
 				blasterHeatRate, blasterCoolRate);
 		*/
-		Unit testUnit = new Battleship("Warden Zeeb", game.getPlayer(), cor);
-		testUnit.setLocation(new Coord(7300, 7500));
+		Unit testUnit = new Battleship("Warden Zeeb", game.getPlayer(), cor, game);
+		testUnit.setLocation(new Coord(1300, 5500));
 		testUnit.setDefense(30);
 		//testUnit.addItem(repeatingCanon);
 		//testUnit.addItem(ionDrill);
@@ -175,6 +175,7 @@ public class FXLauncher extends Application {
 
 			@Override
 			public void handle(ActionEvent arg0) {
+				GlobalVars.CLICK_AREA_OPACITY = 100;
 				// TODO Auto-generated method stub
 				//textNotifier.addText(String.format("%d", RandomGenerator.instance.getInt(10000)), RandomGenerator.instance.getColor());
 			}

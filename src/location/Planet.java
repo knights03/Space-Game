@@ -2,13 +2,18 @@ package location;
 
 import java.io.File;
 
+import game.Game;
 import game.World;
+import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+import particle.TorpedoBurst;
 import unit.Sprite;
 import util.Calc;
 import util.GlobalVars;
@@ -20,12 +25,14 @@ public class Planet extends Location {
 
 	private String name;
 	private World world;
+	private Game game;
 	
 	private ImageView sprite;
 	private double size;
 	private Color color;
 	
-	public Planet(World world) {
+	public Planet(Game game, World world) {
+		this.game = game;
 		this.name = String.format("Planet%d", planetNum++);
 		setLocationType(LocationType.PLANET);
 		this.world = world;
@@ -33,18 +40,19 @@ public class Planet extends Location {
 		
 		size = RandomGenerator.instance.getDouble(200, 100);
 
-		StringBuilder planetImagePath = new StringBuilder("file:images/planets/planet");
+		StringBuilder planetImagePath = new StringBuilder(GlobalVars.PLANET_SPRITE_PATH);
+		planetImagePath.append("planet");
 		
 		int numPlanetImages = 10;
 		
 		planetImagePath.append(RandomGenerator.instance.getInt(numPlanetImages));
 		planetImagePath.append(".png");
 		
-		Image image = new Image(planetImagePath.toString());
+		//Image image = new Image(planetImagePath.toString());
+		Image image = new Image("file:images/planets/Ocean_planet1.png");
 		
 		sprite = new ImageView(image);
-		sprite.setScaleX(size/30);
-		sprite.setScaleY(size/30);
+		
 		
 		setX(RandomGenerator.instance.getDouble(world.getW(), 0, GlobalVars.MIN_LOCATION_SEPERATION));
 		setY(RandomGenerator.instance.getDouble(world.getH(), 0, GlobalVars.MIN_LOCATION_SEPERATION));
@@ -53,13 +61,57 @@ public class Planet extends Location {
 		
 		sprite.setTranslateX(getX());
 		sprite.setTranslateY(getY());
-		sprite.setTranslateZ(RandomGenerator.instance.getDouble(300, 700));
+		sprite.setTranslateZ(RandomGenerator.instance.getDouble(1000, 7000));
 		sprite.toBack();
+		
+		
+		sprite.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				double newX = event.getSceneX()+(game.getPlayer().getLocation().getX()) - GlobalVars.MAIN_WINDOW_WIDTH/2;
+				double newY = event.getSceneY()+(game.getPlayer().getLocation().getY()) - GlobalVars.MAIN_WINDOW_HEIGHT/2;
+				
+				if(event.isControlDown() == false && event.isShiftDown() == false){
+					game.playerMove(event.getSceneX(), event.getSceneY());
+				} else if(event.isControlDown() == true) {
+					//game.getWorldGroup().getChildren().add(new LaserBurst(game.getPlayer(),
+					//		new Coord(newX, newY)).getSprite());
+					
+					game.getPlayer().fireLaser(game, newX, newY);
+				} else if(event.isShiftDown() == true) {
+					game.getWorldGroup().getChildren().add(new TorpedoBurst(game.getPlayer(),
+							new Coord(newX, newY)).getSprite());
+				}
+				
+			}
+			
+		});
+		
+		sprite.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				game.getGameScreen().setCursor(Cursor.HAND);
+			}
+			
+		});
+		
+		sprite.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				game.getGameScreen().setCursor(Cursor.DEFAULT);
+			}
+			
+		});
 		
 	}
 	
-	public Planet(String name, World world) {
-		this(world);
+	public Planet(String name, Game game, World world) {
+		this(game, world);
 		this.name = name;
 	}
 	
@@ -86,6 +138,8 @@ public class Planet extends Location {
 	 */
 	public void setSize(double size) {
 		this.size = size;
+		sprite.setScaleX(size);
+		sprite.setScaleY(size);
 	}
 
 	/**

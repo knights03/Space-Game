@@ -327,6 +327,9 @@ public class Player implements Sprite, Combatant {
 	 * @return time, in milliseconds, to destination
 	 */
 	public double move() {
+		
+		game.getWorldGroup().getChildren().add(new MovementMarker(destination.getX(), destination.getY(), game).getMarker());
+		
 		Task<Void> updateLocation = new Task<Void>() {
 
 			@Override
