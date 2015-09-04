@@ -35,6 +35,7 @@ import location.Location;
 import location.Planet;
 import mining.Asteroid;
 import mining.AsteroidCluster;
+import ship.ShipClasses;
 import unit.*;
 import util.Calc;
 import util.GlobalVars;
@@ -276,8 +277,8 @@ public class Game {
 	public void generateStoryWorld() {
 		worldGroup.getChildren().clear();
 		
-		world.setH(12000);
-		world.setW(12000);
+		world.setH(15000);
+		world.setW(15000);
 		
 		//world.addCluster(5000, 1000, 11000, 5000, 5, 1, 10);
 		//world.addCluster(1000, 5000, 11000, 11000, 15, 2, 20);
@@ -319,17 +320,21 @@ public class Game {
 		}
 
 		// Create an asteroid cluster
-		AsteroidCluster kuperBelt = new AsteroidCluster(3000, 5000, 7000, 7000, 25, this);
+		AsteroidCluster kuperBelt = new AsteroidCluster(0, 2000, 15000, 3000, 25, this);
 		System.out.println();
 
 		// Add the player
-		player.setLocation(new Coord(1250, 9000));
+		player.setLocation(new Coord(1250, 8500));
 		player.setSpeed(300);
 
 		Node playerNode = player.getSprite();
 		worldGroup.getChildren().add(playerNode);
 		playerNode.setTranslateX(player.getLocation().getX());
 		playerNode.setTranslateY(player.getLocation().getY());
+		
+		NPC testUnit = new NPC("Klaxoon The Space Goblin", ShipClasses.mongol, this);
+		testUnit.setLocation(new Coord(1300, 8000));
+		worldGroup.getChildren().add(testUnit.getSprite());
 
 		// Move the world group according to the players location
 		worldGroup.setTranslateX(-1*(player.getLocation().getX()) + GlobalVars.MAIN_WINDOW_WIDTH/2);
@@ -475,6 +480,8 @@ public class Game {
 				}
 
 				if(validHeading == true){
+					
+					
 					playerMove(Calc.instance.angleDestination(player.getLocation(), Math.toRadians(heading), 10000));
 					newCourse.hide();
 				}

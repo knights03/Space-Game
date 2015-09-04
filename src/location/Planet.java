@@ -57,11 +57,13 @@ public class Planet extends Location {
 		setX(RandomGenerator.instance.getDouble(world.getW(), 0, GlobalVars.MIN_LOCATION_SEPERATION));
 		setY(RandomGenerator.instance.getDouble(world.getH(), 0, GlobalVars.MIN_LOCATION_SEPERATION));
 		
-		
+		sprite.setLayoutX(-1*(image.getWidth()/2));
+		sprite.setLayoutY(-1*(image.getHeight()/2));
+
 		
 		sprite.setTranslateX(getX());
 		sprite.setTranslateY(getY());
-		sprite.setTranslateZ(RandomGenerator.instance.getDouble(1000, 7000));
+		sprite.setTranslateZ(RandomGenerator.instance.getDouble(6000, 7000));
 		sprite.toBack();
 		
 		

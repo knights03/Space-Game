@@ -1,5 +1,6 @@
 package util;
 
+import game.World;
 import location.Coord;
 import location.Location;
 
@@ -32,6 +33,16 @@ public class Calc {
 		double yDistance =  -1*(pointB.getY() - pointA.getY());
 		
 		return Math.atan2(yDistance, xDistance);
+	}
+	
+	public Location edgeOfWorld(World world, Location source, double angle) {
+		Location destination = new Coord();
+		
+		double x, y;
+		double rise, run;
+		
+		return null;
+		
 	}
 	
 	
