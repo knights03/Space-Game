@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import cargo.Cargo;
 import cargo.CargoType;
 import cargo.NotEnoughSpace;
-import game.Equippable;
-import game.EquippableType;
 import game.Game;
+import game.HigherLevelRequired;
 import game.Item;
 import game.ItemType;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import mining.MiningTool;
 import weapon.LaserBlaster;
 
@@ -38,7 +37,7 @@ public class Ship {
 	private double fuel;
 	
 	private ArrayList<Item> items = new ArrayList<Item>();
-	private ArrayList<Equippable> equippedItems = new ArrayList<Equippable>();
+	private ArrayList<Item> equippedItems = new ArrayList<Item>();
 	
 	private Hashtable<CargoType, Double> cargoManifest = new Hashtable<CargoType, Double>();
 	
@@ -87,8 +86,8 @@ public class Ship {
 		int armor = shipClass.getArmor();
 		
 		// Check for Power Armor in equiped slots
-		for(Equippable item : equippedItems) {
-			if(item.getEquippableType() == EquippableType.ARMOR) {
+		for(Item item : equippedItems) {
+			if(item.getItemType() == ItemType.ARMOR) {
 				armor =+ ((PowerArmor) item).getArmorRating();
 			}
 		}
@@ -106,8 +105,8 @@ public class Ship {
 		int speed = shipClass.getSpeed();
 		
 		// Check for equiped engine
-		for(Equippable item : equippedItems) {
-			if(item.getEquippableType() == EquippableType.ENGINE) {
+		for(Item item : equippedItems) {
+			if(item.getItemType() == ItemType.ENGINE) {
 				speed *= ((Engine) item).getSpeedMultiplier();
 			}
 		}
@@ -126,8 +125,8 @@ public class Ship {
 	 */
 	public MiningTool equippedMiningTool() {
 		// Cycle through equipped item, looking for a mining tool, return it if found
-		for(Equippable item : equippedItems) {
-			if(item.getEquippableType() == EquippableType.MININGTOOL) 
+		for(Item item : equippedItems) {
+			if(item.getItemType() == ItemType.MININGTOOL) 
 				return (MiningTool) item;
 		}
 		
@@ -142,8 +141,8 @@ public class Ship {
 	 */
 	public LaserBlaster equippedLaserBlaster() {
 		// Cycle through equipped item, looking for a laser blaster, return it if found
-		for(Equippable item : equippedItems) {
-			if(item.getEquippableType() == EquippableType.LASERBLASTER) 
+		for(Item item : equippedItems) {
+			if(item.getItemType() == ItemType.LASERBLASTER) 
 				return (LaserBlaster) item;
 		}
 
@@ -159,12 +158,11 @@ public class Ship {
 	 * @param item The item to be equipped
 	 * @throws NotEnoughSpace
 	 */
-	public void equipItem(Equippable item) throws NotEnoughSpace {
+	public void equipItem(Item item) throws NotEnoughSpace, HigherLevelRequired {
 		if(equippedItems.size() < shipClass.getItemSlots()) {
 			equippedItems.add(item);
 			game.getTextNotifier().addText(String.format("%s successfully equipped", item.getName()));
-		}
-		else
+		} else
 			throw new NotEnoughSpace("Too many equipped items");
 		
 	
@@ -176,7 +174,7 @@ public class Ship {
 	}
 
 
-	public ArrayList<Equippable> getEquippedItems() {
+	public ArrayList<Item> getEquippedItems() {
 		return equippedItems;
 	}
 
@@ -185,15 +183,30 @@ public class Ship {
 	}
 
 
-	public void setEquippedItems(ArrayList<Equippable> equippedItems) {
-		this.equippedItems = equippedItems;
-	}
-
-
 	public void loadCargo(CargoType cargoType, double amount) {
+		
+		double cargoSpaceRemaining = shipClass.getCargoLimit();
+		
+		for(CargoType type : CargoType.values()) {
+			cargoSpaceRemaining -= cargoManifest.get(type);
+			System.out.printf("%s: %.1f", type, cargoManifest.get(type));
+		}
+		
 		double currentAmount = cargoManifest.get(cargoType);
 		
-		cargoManifest.put(cargoType, currentAmount + amount);
+		if(cargoSpaceRemaining >= amount) {
+			cargoManifest.put(cargoType, currentAmount + amount);
+			game.getTextNotifier().addText(String.format("%.1ft of %s loaded", amount, cargoType));
+		} else if(cargoSpaceRemaining > 0 && cargoSpaceRemaining < amount) {
+			cargoManifest.put(cargoType, currentAmount + cargoSpaceRemaining);
+			game.getTextNotifier().addText(String.format("Only %.1ft of %s could be loaded", cargoSpaceRemaining, cargoType), Color.ORANGE);
+		} else if(cargoSpaceRemaining <= 0) {
+			game.getTextNotifier().addText("Not enough space in cargo bay", Color.RED);
+		}
+		
+		//System.out.println(cargoSpaceRemaining);
+		
+		System.out.printf("Max cargo space: %d Space Remaining: %.1f", shipClass.getCargoLimit(), cargoSpaceRemaining);
 	}
 	
 	

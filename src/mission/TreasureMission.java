@@ -1,10 +1,10 @@
 package mission;
 
-import cargo.Cargo;
+import game.Item;
 
 public class TreasureMission extends Mission implements Completable {
 	
-	private Cargo treasureTarget;
+	private Item treasureTarget;
 
 	@Override
 	public boolean checkCompletion() {

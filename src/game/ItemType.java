@@ -2,5 +2,5 @@ package game;
 
 public enum ItemType {
 
-	EQUIPPABLE, CARGO
+	MININGTOOL, LASERBLASTER, TORPEDOLAUNCHER, ENGINE, ARMOR;
 }

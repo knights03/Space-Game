@@ -1,22 +1,15 @@
 package ship;
 
-import game.Equippable;
-import game.EquippableType;
 import game.Item;
 import game.ItemType;
 
-public class Engine extends Equippable {
+public class Engine extends Item {
 	
 	private int speedMultiplier;
 	
-	public Engine(String name, int weight, int speedMultiplier) {
-		super(name, weight);
+	public Engine(String name, double weight, int speedMultiplier) {
+		super(name, weight, ItemType.ENGINE);
 		this.speedMultiplier = speedMultiplier;
-	}
-
-	@Override
-	public EquippableType getEquippableType() {
-		return EquippableType.ENGINE;
 	}
 	
 	public int getSpeedMultiplier() {

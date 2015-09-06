@@ -5,6 +5,7 @@ package game;
 import java.lang.annotation.Documented;
 import java.util.ArrayList;
 
+import cargo.NotEnoughSpace;
 import economy.Trade;
 import faction.Faction;
 import javafx.animation.Animation;
@@ -331,12 +332,28 @@ public class Game {
 		}
 
 		// Create an asteroid cluster
-		AsteroidCluster kuperBelt = new AsteroidCluster(3000, 5000, 7000, 7000, 25, this);
+		AsteroidCluster kuperBelt = new AsteroidCluster(1000, 5000, 4000, 8200, 25, this);
 		System.out.println();
 
 		// Add the player
 		player.setLocation(new Coord(1250, 9000));
 		player.setSpeed(300);
+		
+		try {
+			player.getShip().equipItem(GameItems.class1DefensePulsor);
+		} catch (NotEnoughSpace e) {
+			textNotifier.addText("No free item slots", Color.RED);
+		} catch (HigherLevelRequired e) {
+			
+		}
+		
+		try {
+			player.getShip().equipItem(GameItems.protonChisel);
+		} catch (NotEnoughSpace e) {
+			textNotifier.addText("No free item slots", Color.RED);
+		} catch (HigherLevelRequired e) {
+			
+		}
 
 		/*
 		Node playerNode = player.getSprite();

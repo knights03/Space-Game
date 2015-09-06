@@ -21,9 +21,9 @@ import util.Calc;
 import util.GlobalVars;
 import util.RandomGenerator;
 
-public class AsteroidIron extends Asteroid implements Sprite {
+public class AsteroidTritonite extends Asteroid implements Sprite {
 
-	public AsteroidIron(Location location, Game game, AsteroidCluster homeCluster) {
+	public AsteroidTritonite(Location location, Game game, AsteroidCluster homeCluster) {
 		
 		super(game, homeCluster);
 		
@@ -32,9 +32,23 @@ public class AsteroidIron extends Asteroid implements Sprite {
 		
 		generateSprite();
 		
-		getSprite().setFill(Color.gray(RandomGenerator.instance.getDouble(1)));
+		int r = 93;
+		int g = 70;
+		int b = 0xDB;
+		
+		int modifier = RandomGenerator.instance.getInt(35, -70);
+		
+		r += modifier;
+		g += modifier;
+		b += modifier;
+		
+		Color color = Color.rgb(r, g, b);
+		
+		color.deriveColor(0, 0, -90, 0);
+		
+		getSprite().setFill(color);
 
-		mineHandler(CargoType.IRON);
+		mineHandler(CargoType.TRITONITE);
 		
 		
 	}

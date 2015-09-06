@@ -24,10 +24,20 @@ public class AsteroidCluster {
 		System.out.println("Density" + asteroidCount);
 		
 		for(int i = 0; i < asteroidCount; i++) {
-			Asteroid newAsteroid = new AsteroidIron(
+			
+			double asteroidPicker = RandomGenerator.instance.getDouble(100);
+			
+			Asteroid newAsteroid;
+			
+			if(asteroidPicker < 90) {	
+			newAsteroid = new AsteroidIron(
 					new Coord(	RandomGenerator.instance.getDouble(x2, x1),
-								RandomGenerator.instance.getDouble(y2, y1)),
-							RandomGenerator.instance.getInt(35, 12), game, this);
+								RandomGenerator.instance.getDouble(y2, y1)), game, this);
+			} else {
+			newAsteroid = new AsteroidTritonite(
+						new Coord(	RandomGenerator.instance.getDouble(x2, x1),
+									RandomGenerator.instance.getDouble(y2, y1)), game, this);
+			}
 			
 			asteroidList.add(newAsteroid);
 			game.getWorldGroup().getChildren().add(newAsteroid.getSprite());

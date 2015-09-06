@@ -1,5 +1,5 @@
 package cargo;
 
 public enum CargoType {
-	IRON
+	IRON, TRITONITE
 }

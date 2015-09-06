@@ -19,7 +19,7 @@ public class TextNotifier {
 		
 		for(int i = 0; i < numberOfLines; i++) {
 			textLines[i] = new Label();
-			notifierText.getChildren().add(textLines[i]);
+			notifierText.getChildren().add(0, textLines[i]);
 		}
 	}
 	

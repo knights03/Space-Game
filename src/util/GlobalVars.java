@@ -41,6 +41,11 @@ public class GlobalVars {
 	
 	public static String PLANET_SPRITE_PATH = "file:images/planets/";
 	public static String SHIP_SPRITE_PATH = "file:images/ships/";
+	
+	public static double ASTEROID_YIELD_MAX = 35;
+	public static double ASTEROID_YIELD_MIN = 12;
+	public static double IRON_ASTEROID_INT_MULT = 1;
+	public static double TRITONITE_ASTEROID_INT_MULT = 3;
 
 	
 }

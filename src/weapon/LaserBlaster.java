@@ -1,13 +1,11 @@
 package weapon;
 
 import util.RandomGenerator;
-import game.Equippable;
-import game.EquippableType;
 import game.Item;
 import game.ItemType;
 import javafx.scene.paint.Color;
 
-public class LaserBlaster extends Equippable {
+public class LaserBlaster extends Item {
 
 	private double damage;
 	private double criticalChance;
@@ -15,17 +13,12 @@ public class LaserBlaster extends Equippable {
 	private double range;
 
 	
-	public LaserBlaster(String name, int weight, double damage, double critical, Color color, double range) {
-		super(name, weight);
+	public LaserBlaster(String name, double weight, double damage, double critical, Color color, double range) {
+		super(name, weight, ItemType.LASERBLASTER);
 		this.damage = damage;
 		this.criticalChance = critical;
 		this.color = color;
 		this.range = range;
-	}
-	
-	@Override
-	public EquippableType getEquippableType() {
-		return EquippableType.LASERBLASTER;
 	}
 
 	public double getDamage() {

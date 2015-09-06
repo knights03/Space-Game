@@ -27,7 +27,6 @@ import particle.TorpedoBurst;
 import resource.Resource;
 import util.GlobalVars;
 import weapon.LaserBlaster;
-import cargo.Cargo;
 
 public abstract class Unit implements Sprite {
 	
@@ -48,7 +47,6 @@ public abstract class Unit implements Sprite {
 	private UnitType unitType;
 	
 	private ArrayList<Resource> resources;
-	private ArrayList<Cargo> cargo;
 	private int cargoCapacity;
 	
 	private Location location;
@@ -166,12 +164,7 @@ public abstract class Unit implements Sprite {
 	public ArrayList<Resource> getResources() {
 		return resources;
 	}
-	/**
-	 * @return the cargo
-	 */
-	public ArrayList<Cargo> getCargo() {
-		return cargo;
-	}
+
 	/**
 	 * @return the health
 	 */
@@ -337,17 +330,7 @@ public abstract class Unit implements Sprite {
 	public void setResources(ArrayList<Resource> resources) {
 		this.resources = resources;
 	}
-	/**
-	 * @param cargo the cargo to set
-	 */
-	public void setCargo(ArrayList<Cargo> cargo) {
-		this.cargo = cargo;
-	}
-	
-	
-	public void addCargo(Cargo cargo) {
-		this.cargo.add(cargo);
-	}
+
 	
 	
 	/**
@@ -470,15 +453,6 @@ public abstract class Unit implements Sprite {
 		return items;
 	}
 	
-	public String getItemsString() {
-		StringBuilder itemString = new StringBuilder();
-		
-		for(Item nextItem : items) {
-			itemString.append(String.format("%s\n", nextItem.getName()));
-		}
-		
-		return itemString.toString();
-	}
 	
 	public void addItem(Item item) {
 		items.add(item);

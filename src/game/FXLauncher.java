@@ -182,20 +182,7 @@ public class FXLauncher extends Application {
 
 		});
 		
-		Button equipDefenseBlaster = new Button("Equip Defense Blaster");
-
-		equipDefenseBlaster.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				try {
-					game.getPlayer().getShip().equipItem(GameItems.class1DefensePulsor);
-				} catch (NotEnoughSpace e) {
-					game.getTextNotifier().addText("Too many equipped items!", Color.RED);
-				}
-			}
-
-		});
+		
 		
 		Button regenWorld = new Button("Generate new World");
 
@@ -213,7 +200,6 @@ public class FXLauncher extends Application {
 		game.getLeftToolBox().getChildren().add(showInventory);
 		game.getLeftToolBox().getChildren().add(playerChangeCourse);
 		game.getLeftToolBox().getChildren().add(addText);
-		game.getLeftToolBox().getChildren().add(equipDefenseBlaster);
 		game.getLeftToolBox().getChildren().add(regenWorld);
 		//game.getLeftToolBox().getChildren().add(textNotifier.getNotifierText());
 

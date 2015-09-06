@@ -1,29 +1,22 @@
 package mining;
 
-import game.Equippable;
-import game.EquippableType;
 import game.Item;
 import game.ItemType;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-public class MiningTool extends Equippable {
+public class MiningTool extends Item {
 
 	private double power;
 	private double range;
 	private Color beamColor;
 
-	public MiningTool(String name, int weight, double power, double range, Color beamColor) {
+	public MiningTool(String name, double weight, double power, double range, Color beamColor) {
 		
-		super(name, weight);
+		super(name, weight, ItemType.MININGTOOL);
 		this.power = power;
 		this.range = range;
 		this.beamColor = beamColor;
-	}
-	
-	@Override
-	public EquippableType getEquippableType() {
-		return EquippableType.MININGTOOL;
 	}
 
 	/**
