@@ -1,5 +1,6 @@
 package mining;
 
+import cargo.CargoType;
 import cargo.NotEnoughSpace;
 import game.Game;
 import game.Player;
@@ -175,7 +176,7 @@ public class AsteroidIron extends Asteroid implements Sprite {
 		if(getIntegrity() <= 0) {
 			
 			getGame().removeNode(getSprite());
-			getGame().getPlayer().getShip().loadItem(new Iron(getYield()));
+			getGame().getPlayer().getShip().loadCargo(CargoType.IRON, getYield());
 			getGame().getTextNotifier().addText(String.format("%dt of Iron received", getYield()));
 		}
 	}

@@ -4,14 +4,18 @@ import java.util.ArrayList;
 
 import faction.Faction;
 import game.Game;
+import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
+import javafx.concurrent.Task;
 import javafx.scene.Node;
+import javafx.util.Duration;
 import location.Coord;
 import location.Location;
 import particle.LaserBurst;
 import particle.Projectile;
 import ship.Ship;
 import ship.ShipClass;
+import util.Calc;
 import weapon.LaserBlaster;
 
 public class NPC implements Sprite, Combatant {
@@ -78,6 +82,69 @@ public class NPC implements Sprite, Combatant {
 	public void setLocation(Location location) {
 		// TODO Auto-generated method stub
 		this.location = location;
+	}
+	
+	public void setRotation(double rotation) {
+		ship.getSprite().setRotate(rotation);
+	}
+
+	public Location getDestination() {
+		return destination;
+	}
+
+	public TranslateTransition getMovement() {
+		return movement;
+	}
+
+	public void setDestination(Location destination) {
+
+		this.destination = destination;
+
+		if(movement.getStatus() == Animation.Status.RUNNING) {
+			movement.stop();
+		}
+
+		this.run();
+	}
+
+	public void setMovement(TranslateTransition movement) {
+		this.movement = movement;
+	}
+	
+	
+	public void run() {
+		Task<Void> updateLocation = new Task<Void>() {
+
+			@Override
+			protected Void call() throws Exception {
+				while(movement.getStatus() == Animation.Status.RUNNING) {
+					location.setX(ship.getSprite().getTranslateX());
+					location.setY(ship.getSprite().getTranslateY());
+				}
+				return null;
+			}
+			
+		};
+		
+
+		
+		ship.getSprite().setRotate(Math.toDegrees(Calc.instance.getAngle(location, destination))-90);
+		
+		double xDistanceToDestination = Math.abs(location.getX()-destination.getX());
+		double yDistanceToDestination = Math.abs(location.getY()-destination.getY());
+		
+		double distanceToDestination = Math.sqrt(Math.pow(xDistanceToDestination, 2)
+				+ Math.pow(yDistanceToDestination, 2));
+		
+		double timeToDestination = distanceToDestination/ship.getSpeed()*1000;
+		
+		movement = new TranslateTransition(Duration.millis(timeToDestination), ship.getSprite());
+		movement.setToX(destination.getX());
+		movement.setToY(destination.getY());
+
+		movement.play();
+		
+		new Thread(updateLocation).start();
 	}
 
 }

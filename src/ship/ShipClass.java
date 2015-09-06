@@ -23,23 +23,22 @@ public class ShipClass {
 	 */
 	
 	private ShipClasses.Classes name;
-	private Hashtable<String, Integer> shipStats = new Hashtable<String, Integer>();
 	
 	private ImageView sprite;
+	
+	private int armor, speed, itemSlots, avgCost, fuelCapacity, torpedoCapacity, cargoLimit;
 	
 	public ShipClass(ShipClasses.Classes name, int armor, int speed, int itemSlots, int avgCost, int fuelCapacity,
 			int torpedoCapacity, int cargoLimit) {
 		
 		this.name = name;
-		
-		shipStats.put("Armor", armor);
-		shipStats.put("Speed", speed);
-		shipStats.put("Item Slots", itemSlots);
-		shipStats.put("Average Cost", avgCost);
-		shipStats.put("Fuel Capacity", fuelCapacity);
-		shipStats.put("Max Torpedoes", torpedoCapacity);
-		shipStats.put("Cargo Limit", cargoLimit);
-	
+
+		this.armor = armor;
+		this.speed = speed;
+		this.itemSlots = itemSlots;
+		this.fuelCapacity = fuelCapacity;
+		this.torpedoCapacity = torpedoCapacity;
+		this.cargoLimit = cargoLimit;
 		
 		sprite = ShipFactory.instance.newShip(name);
 		
@@ -49,43 +48,33 @@ public class ShipClass {
 	public ShipClasses.Classes getName() {
 		return name;
 	}
-	
-	public int getStat(String stat) throws StatNotPresent {
-		
-		if(shipStats.contains(stat)) {
-			return shipStats.get(stat);
-		} else {
-			throw new StatNotPresent(String.format("Stat '%s' not present in this ship class", stat));
-		}
-		
-	}
-	
+
 	public int getArmor() {
-		return shipStats.get("Armor");
+		return armor;
 	}
-	
+
 	public int getSpeed() {
-		return shipStats.get("Speed");
+		return speed;
 	}
-	
+
 	public int getItemSlots() {
-		return shipStats.get("Item Slots");
+		return itemSlots;
 	}
-	
+
 	public int getAvgCost() {
-		return shipStats.get("Average Cost");
+		return avgCost;
 	}
-	
+
 	public int getFuelCapacity() {
-		return shipStats.get("Fuel Capacity");
+		return fuelCapacity;
 	}
-	
-	public int getMaxTorpedoes() {
-		return shipStats.get("Max Torpedoes");
+
+	public int getTorpedoCapacity() {
+		return torpedoCapacity;
 	}
-	
+
 	public int getCargoLimit() {
-		return shipStats.get("Cargo Limit");
+		return cargoLimit;
 	}
 	
 	public ImageView getSprite() {
@@ -94,10 +83,6 @@ public class ShipClass {
 
 	public void setSprite(ImageView sprite) {
 		this.sprite = sprite;
-	}
-
-	public void customStat(String stat, int value) {
-		shipStats.put(stat, value);
 	}
 
 }

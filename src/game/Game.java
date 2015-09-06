@@ -269,7 +269,7 @@ public class Game {
 		return primaryStage;
 	}
 
-	private void addToWorldGroup(Sprite sprite) {
+	public void addSprite(Sprite sprite) {
 		worldGroup.getChildren().add(sprite.getSprite());
 		sprite.getSprite().setTranslateX(sprite.getLocation().getX());
 		sprite.getSprite().setTranslateY(sprite.getLocation().getY());
@@ -308,13 +308,19 @@ public class Game {
 		
 		
 		// Test planet
-		Planet startPlanet = new Planet("Tavistock", this, world);
-		startPlanet.setX(1500);
-		startPlanet.setY(10000);
-		startPlanet.setSize(3);
+		Planet tavistock = new Planet("Tavistock", this, world);
+		tavistock.setX(1500);
+		tavistock.setY(10000);
+		tavistock.setSize(3);
+		
+		Planet davenport = new Planet("Davenport", this, world);
+		davenport.setX(3000);
+		davenport.setY(400);
+		davenport.setSize(3);
 		//startPlanet.setColor(Color.DARKBLUE);
 		
-		world.addLocation(startPlanet);
+		world.addLocation(tavistock);
+		world.addLocation(davenport);
 
 		// Add all world locations to the game window
 		for(Location nextPlanet : world.getLocations()) {
@@ -339,15 +345,23 @@ public class Game {
 		playerNode.setTranslateY(player.getLocation().getY());
 		*/
 		
-		addToWorldGroup(player);
+		addSprite(player);
 		
 		NPC klaaxoid = new NPC("Klaaxoid the Unbearable", ShipClasses.excelsior, this);
 		klaaxoid.setLocation(new Coord(1300, 8700));
-		addToWorldGroup(klaaxoid);
+		klaaxoid.setRotation(160);
+		addSprite(klaaxoid);
 		
-		NPC gunst = new NPC("Gunst, Scourge of Ootan", ShipClasses.akira, this);
+		NPC gunst = new NPC("Gunst, Scourge of Ootan", ShipClasses.intrepid, this);
 		gunst.setLocation(new Coord(1500, 8600));
-		addToWorldGroup(gunst);
+		gunst.setRotation(35);
+		addSprite(gunst);
+		
+		// Trade route
+		Location pointA = new Coord(1000, 8900);
+		Location pointB = new Coord(1900, 8900);
+		TradeRoute tradeRoute = new TradeRoute(pointA, pointB, 1, this);
+		
 
 		// Move the world group according to the players location
 		worldGroup.setTranslateX(-1*(player.getLocation().getX()) + GlobalVars.MAIN_WINDOW_WIDTH/2);

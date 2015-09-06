@@ -39,7 +39,8 @@ public class Ship {
 	
 	private ArrayList<Item> items = new ArrayList<Item>();
 	private ArrayList<Equippable> equippedItems = new ArrayList<Equippable>();
-	private ArrayList<Cargo> cargo = new ArrayList<Cargo>();
+	
+	private Hashtable<CargoType, Double> cargoManifest = new Hashtable<CargoType, Double>();
 	
 	private int cargoSpaceRemaining;
 	
@@ -50,6 +51,11 @@ public class Ship {
 		cargoSpaceRemaining = shipClass.getCargoLimit();
 		
 		sprite = ShipFactory.instance.newShip(shipClass.getName());
+		
+		for(CargoType cargoType : CargoType.values()) {
+			cargoManifest.put(cargoType, 0.0);
+		}
+		
 	}
 	
 	
@@ -146,124 +152,7 @@ public class Ship {
 
 	}
 
-	/**
-	 * Calculates remaining cargo space. Loops through all items, adds up their combined weight, then subtracts it from
-	 * ShipClass cargo limit
-	 * @return The ship's remaining cargo space
-	 */
-	private int calculateRemainingCargoSpace() {
-		int remainingSpace = shipClass.getCargoLimit();
-		
-		for(Item item : items) {
-			remainingSpace -= item.getWeight();
-		}
-		
-		cargoSpaceRemaining = remainingSpace;
-		
-		return remainingSpace;
-	}
-	
-	/**
-	 * Collects all cargo objects in the ships cargo bay of the same type and combines them into one, stacked object.
-	 * Starts by creating a hashtable of all possible item types at zero then loops through all items. Every item has its
-	 * amount added to its respective variable, then 
-	 */
-	private void organizeCargo() {
-		Hashtable<CargoType, Integer> cargoAmounts = new Hashtable<CargoType, Integer>();
-		
-		// Initialize hashmap with all CargoType amounts set to zero
-		for(CargoType type : CargoType.values()) {
-			cargoAmounts.put(type, 0);
-		}
-		
-		// Loop through each cargo item. For each item loop through each CargoType to see if it matches with that Cargo
-		// item. If it does increment the hashmap index
-		for(Cargo item : cargo) { 
-			for(CargoType type : CargoType.values()) {
-				if(item.getCargoType() == type) {
-					int currentAmount = cargoAmounts.get(type);
-					cargoAmounts.put(type, currentAmount + item.getAmount());
-				}
-			}
-		}
-		
-		// Reset the Cargo list field
-		cargo = new ArrayList<Cargo>();
-		
-		// Loop through each CargoType
-		for(CargoType type : CargoType.values()) {
-			// If the CargoType's entry in the hashmap is greater than 0, add a new
-			// Cargo object to the cargo list field
-			if(cargoAmounts.get(type) > 0) {
-				cargo.add(Cargo.newCargo(type, cargoAmounts.get(type)));
-			}
-		}
-	
-	}
 
-	private void organizeItemsCargo() {
-		Hashtable<CargoType, Integer> cargoAmounts = new Hashtable<CargoType, Integer>();
-
-		// Initialize hashmap with all CargoType amounts set to zero
-		for(CargoType type : CargoType.values()) {
-			cargoAmounts.put(type, 0);
-		}
-
-		// Loop through each cargo item. For each item loop through each CargoType to see if it matches with that Cargo
-		// item. If it does increment the hashmap index
-		for(Item item : items) { 
-			if(item.getItemType() == ItemType.CARGO) {
-				for(CargoType type : CargoType.values()) {
-					if(((Cargo) item).getCargoType() == type) {
-						int currentAmount = cargoAmounts.get(type);
-						cargoAmounts.put(type, currentAmount + ((Cargo) item).getAmount());
-					}
-				}
-			}
-		}
-
-		// Reset the Cargo list field
-		cargo = new ArrayList<Cargo>();
-
-		// Loop through each CargoType
-		for(CargoType type : CargoType.values()) {
-			// If the CargoType's entry in the hashmap is greater than 0, add a new
-			// Cargo object to the cargo list field
-			if(cargoAmounts.get(type) > 0) {
-				cargo.add(Cargo.newCargo(type, cargoAmounts.get(type)));
-			}
-		}
-
-	}
-	
-	
-	/**
-	 * Loads an item into the ships cargo bay. Compares the calculated remaining cargo space using
-	 * calculateRemainingCargoSpace() to the ship classes cargo space, if there is 
-	 * enough room adds the item to the cargo bay. If not enough space throws NotEnoughSpace
-	 * @param item The item to be added to the cargo bay
-	 */
-	public void loadItem(Item item) {
-		if(calculateRemainingCargoSpace() >= item.getWeight()) {
-			items.add(item);
-			if(item.getItemType() == ItemType.CARGO)
-				cargo.add((Cargo) item);
-			
-			organizeCargo();
-		}
-		else {
-			if(calculateRemainingCargoSpace() > 0 && item.getItemType() == ItemType.CARGO)
-				cargo.add(Cargo.newCargo(((Cargo) item).getCargoType(), calculateRemainingCargoSpace()));
-			
-			organizeCargo();
-		}
-		
-		for(Item itemPrint : cargo) {
-			System.out.println(itemPrint);
-		}
-		
-	}
-	
 	/**
 	 * Equips an item. Compares the amount of items currently equipped to the ship classes item slots, if there is enough room adds
 	 * the item to the ships equipped item list. If not enough slots throws NotEnoughSpace
@@ -291,12 +180,6 @@ public class Ship {
 		return equippedItems;
 	}
 
-
-	public ArrayList<Cargo> getCargo() {
-		return cargo;
-	}
-
-
 	public void setItems(ArrayList<Item> items) {
 		this.items = items;
 	}
@@ -307,8 +190,10 @@ public class Ship {
 	}
 
 
-	public void setCargo(ArrayList<Cargo> cargo) {
-		this.cargo = cargo;
+	public void loadCargo(CargoType cargoType, double amount) {
+		double currentAmount = cargoManifest.get(cargoType);
+		
+		cargoManifest.put(cargoType, currentAmount + amount);
 	}
 	
 	

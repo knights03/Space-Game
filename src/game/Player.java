@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import cargo.NotEnoughSpace;
 import javafx.animation.Animation;
@@ -47,6 +48,9 @@ public class Player implements Sprite, Combatant {
 	private boolean moveClick;
 	
 	private Ship ship;
+	
+	private Hashtable<Skill, Integer> skillsLevel = new Hashtable<Skill, Integer>();
+	private Hashtable<Skill, Integer> skillsXP = new Hashtable<Skill, Integer>();
 	
 	// Items
 	private ArrayList<Item> items = new ArrayList<Item>();

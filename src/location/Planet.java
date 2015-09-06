@@ -61,7 +61,7 @@ public class Planet extends Location {
 		
 		sprite.setTranslateX(getX());
 		sprite.setTranslateY(getY());
-		sprite.setTranslateZ(RandomGenerator.instance.getDouble(1000, 7000));
+		sprite.setTranslateZ(5000);
 		sprite.toBack();
 		
 		
