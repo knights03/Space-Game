@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cargo.NotEnoughSpace;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.concurrent.Task;
 import javafx.scene.Node;
@@ -192,7 +193,7 @@ public class Player implements Sprite, Combatant {
 		//sprite.setTranslateZ(1000);
 		sprite.toFront();*/
 		
-		sprite = ship.getShipClass().getSprite();
+		sprite = ship.getSprite();
 
 		return sprite;
 	}
@@ -344,7 +345,8 @@ public class Player implements Sprite, Combatant {
 		};
 		
 		// Rotate sprite to face new direction
-		ship.getShipClass().getSprite().setRotate(Math.toDegrees(Calc.instance.getAngle(location, destination))-90);
+		
+		ship.getSprite().setRotate(Math.toDegrees(Calc.instance.getAngle(location, destination))-90);
 		
 		// Calculate the distance between location and destination
 		double distanceToDestination = Calc.instance.getDistance(location.getX(), location.getY(),

@@ -22,12 +22,12 @@ public class ShipClass {
 	 * -
 	 */
 	
-	private String name;
+	private ShipClasses.Classes name;
 	private Hashtable<String, Integer> shipStats = new Hashtable<String, Integer>();
 	
 	private ImageView sprite;
 	
-	public ShipClass(String name, int armor, int speed, int itemSlots, int avgCost, int fuelCapacity,
+	public ShipClass(ShipClasses.Classes name, int armor, int speed, int itemSlots, int avgCost, int fuelCapacity,
 			int torpedoCapacity, int cargoLimit, String spriteImage) {
 		
 		this.name = name;
@@ -40,6 +40,8 @@ public class ShipClass {
 		shipStats.put("Max Torpedoes", torpedoCapacity);
 		shipStats.put("Cargo Limit", cargoLimit);
 		
+		
+		
 		Image image = new Image(spriteImage);
 		
 		
@@ -51,7 +53,7 @@ public class ShipClass {
 		
 	}
 	
-	public String getName() {
+	public ShipClasses.Classes getName() {
 		return name;
 	}
 	

@@ -12,6 +12,7 @@ import game.EquippableType;
 import game.Game;
 import game.Item;
 import game.ItemType;
+import javafx.scene.image.ImageView;
 import mining.MiningTool;
 import weapon.LaserBlaster;
 
@@ -31,6 +32,7 @@ public class Ship {
 	
 	private String name;
 	private ShipClass shipClass;
+	private ImageView sprite;
 	
 	private int torpedos;
 	private double fuel;
@@ -46,6 +48,8 @@ public class Ship {
 		this.game = game;
 		fuel = shipClass.getFuelCapacity();
 		cargoSpaceRemaining = shipClass.getCargoLimit();
+		
+		sprite = ShipFactory.instance.newShip(shipClass.getName());
 	}
 	
 	
@@ -53,6 +57,16 @@ public class Ship {
 		return name;
 	}
 	
+	public ImageView getSprite() {
+		return sprite;
+	}
+
+
+	public void setSprite(ImageView sprite) {
+		this.sprite = sprite;
+	}
+
+
 	public ShipClass getShipClass() {
 		return shipClass;
 	}
