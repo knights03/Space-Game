@@ -35,6 +35,7 @@ import location.Location;
 import location.Planet;
 import mining.Asteroid;
 import mining.AsteroidCluster;
+import ship.ShipClasses;
 import unit.*;
 import util.Calc;
 import util.GlobalVars;
@@ -268,6 +269,11 @@ public class Game {
 		return primaryStage;
 	}
 
+	private void addToWorldGroup(Sprite sprite) {
+		worldGroup.getChildren().add(sprite.getSprite());
+		sprite.getSprite().setTranslateX(sprite.getLocation().getX());
+		sprite.getSprite().setTranslateY(sprite.getLocation().getY());
+	}
 	
 	/**
 	 * Generates the story world by setting world h and w and adding random planet and asteroid clusters. Used for testing purposes only
@@ -326,10 +332,22 @@ public class Game {
 		player.setLocation(new Coord(1250, 9000));
 		player.setSpeed(300);
 
+		/*
 		Node playerNode = player.getSprite();
 		worldGroup.getChildren().add(playerNode);
 		playerNode.setTranslateX(player.getLocation().getX());
 		playerNode.setTranslateY(player.getLocation().getY());
+		*/
+		
+		addToWorldGroup(player);
+		
+		NPC klaaxoid = new NPC("Klaaxoid the Unbearable", ShipClasses.excelsior, this);
+		klaaxoid.setLocation(new Coord(1300, 8700));
+		addToWorldGroup(klaaxoid);
+		
+		NPC gunst = new NPC("Gunst, Scourge of Ootan", ShipClasses.akira, this);
+		gunst.setLocation(new Coord(1500, 8600));
+		addToWorldGroup(gunst);
 
 		// Move the world group according to the players location
 		worldGroup.setTranslateX(-1*(player.getLocation().getX()) + GlobalVars.MAIN_WINDOW_WIDTH/2);

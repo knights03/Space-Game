@@ -28,7 +28,7 @@ public class ShipClass {
 	private ImageView sprite;
 	
 	public ShipClass(ShipClasses.Classes name, int armor, int speed, int itemSlots, int avgCost, int fuelCapacity,
-			int torpedoCapacity, int cargoLimit, String spriteImage) {
+			int torpedoCapacity, int cargoLimit) {
 		
 		this.name = name;
 		
@@ -39,16 +39,9 @@ public class ShipClass {
 		shipStats.put("Fuel Capacity", fuelCapacity);
 		shipStats.put("Max Torpedoes", torpedoCapacity);
 		shipStats.put("Cargo Limit", cargoLimit);
+	
 		
-		
-		
-		Image image = new Image(spriteImage);
-		
-		
-		sprite = new ImageView(new Image(spriteImage));
-		
-		sprite.setLayoutX((image.getWidth()/2)*-1);
-		sprite.setLayoutY((image.getHeight()/2)*-1);
+		sprite = ShipFactory.instance.newShip(name);
 		
 		
 	}

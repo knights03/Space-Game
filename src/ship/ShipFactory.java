@@ -10,6 +10,7 @@ public class ShipFactory {
 	
 	public ImageView newShip(ShipClasses.Classes shipClass) {
 		StringBuilder spritePath = new StringBuilder(GlobalVars.SHIP_SPRITE_PATH);
+		Image spriteImage;
 		
 		switch(shipClass) {
 		case AKIRA:
@@ -18,9 +19,18 @@ public class ShipFactory {
 		case EXCELSIOR:
 			spritePath.append("excelsior.png");
 			break;
-		}
 		
-		return new ImageView(new Image(spritePath.toString()));
+		case INTREPID:
+			spritePath.append("intrepid.png");
+			break;
+		}
+		spriteImage = new Image(spritePath.toString());
+		
+		ImageView sprite = new ImageView(spriteImage);
+		sprite.setLayoutX(-1*(spriteImage.getWidth()/2));
+		sprite.setLayoutY(-1*(spriteImage.getHeight()/2));
+		
+		return sprite;
 	}
 
 }
