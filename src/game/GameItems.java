@@ -28,6 +28,6 @@ public class GameItems {
 
 	
 	static MiningTool protonChisel = new MiningTool("Proton Chisel", 1, 15,
-			150, Color.AQUAMARINE);
+			400, Color.AQUAMARINE);
 
 }

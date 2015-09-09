@@ -364,12 +364,12 @@ public class Game {
 		
 		addSprite(player);
 		
-		NPC klaaxoid = new NPC("Klaaxoid the Unbearable", ShipClasses.excelsior, this);
+		NPC klaaxoid = new NPC("Klaaxoid the Unbearable", ShipClasses.frontlineFighter, this);
 		klaaxoid.setLocation(new Coord(1300, 8700));
 		klaaxoid.setRotation(160);
 		addSprite(klaaxoid);
 		
-		NPC gunst = new NPC("Gunst, Scourge of Ootan", ShipClasses.intrepid, this);
+		NPC gunst = new NPC("Gunst, Scourge of Ootan", ShipClasses.pursuitFighter, this);
 		gunst.setLocation(new Coord(1500, 8600));
 		gunst.setRotation(35);
 		addSprite(gunst);
@@ -377,7 +377,7 @@ public class Game {
 		// Trade route
 		Location pointA = new Coord(1000, 8900);
 		Location pointB = new Coord(1900, 8900);
-		TradeRoute tradeRoute = new TradeRoute(pointA, pointB, 1, this);
+		//TradeRoute tradeRoute = new TradeRoute(pointA, pointB, 1, this);
 		
 
 		// Move the world group according to the players location

@@ -2,6 +2,7 @@ package ship;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import ship.ShipClasses.Classes;
 import util.GlobalVars;
 
 public class ShipFactory {
@@ -12,18 +13,14 @@ public class ShipFactory {
 		StringBuilder spritePath = new StringBuilder(GlobalVars.SHIP_SPRITE_PATH);
 		Image spriteImage;
 		
-		switch(shipClass) {
-		case AKIRA:
-			spritePath.append("akira.png");
-			break;
-		case EXCELSIOR:
-			spritePath.append("excelsior.png");
-			break;
-		
-		case INTREPID:
-			spritePath.append("intrepid.png");
-			break;
+		for(Classes shipClassCheck : ShipClasses.Classes.values()) {
+			if(shipClassCheck == shipClass) {
+				spritePath.append(shipClass.toString().toLowerCase());
+			}
 		}
+		
+		spritePath.append(".png");
+		
 		spriteImage = new Image(spritePath.toString());
 		
 		ImageView sprite = new ImageView(spriteImage);

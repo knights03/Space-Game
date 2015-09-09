@@ -72,7 +72,7 @@ public class Player implements Sprite, Combatant {
 		
 		
 		
-		ship = new Ship(ShipClasses.akira, game);
+		ship = new Ship(ShipClasses.skidsteer, game);
 		
 		
 		/*
@@ -357,7 +357,7 @@ public class Player implements Sprite, Combatant {
 				destination.getX(), destination.getY());
 
 		// Use distance and speed to determine time to destination
-		double timeToDestination = distanceToDestination/speed*1000;
+		double timeToDestination = distanceToDestination/ship.getSpeed()*1000;
 
 		// Use time to destination to adjust TranslateTransition object 'movement'
 		movement = new TranslateTransition();

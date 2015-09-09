@@ -32,21 +32,7 @@ public class AsteroidTritonite extends Asteroid implements Sprite {
 		
 		generateSprite();
 		
-		int r = 93;
-		int g = 70;
-		int b = 0xDB;
-		
-		int modifier = RandomGenerator.instance.getInt(35, -70);
-		
-		r += modifier;
-		g += modifier;
-		b += modifier;
-		
-		Color color = Color.rgb(r, g, b);
-		
-		color.deriveColor(0, 0, -90, 0);
-		
-		getSprite().setFill(color);
+		getSprite().setFill(GlobalVars.TRITONITE_ASTEROID_COLOR);
 
 		mineHandler(CargoType.TRITONITE);
 		

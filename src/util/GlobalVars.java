@@ -46,6 +46,8 @@ public class GlobalVars {
 	public static double ASTEROID_YIELD_MIN = 12;
 	public static double IRON_ASTEROID_INT_MULT = 1;
 	public static double TRITONITE_ASTEROID_INT_MULT = 3;
+	
+	public static Color TRITONITE_ASTEROID_COLOR = Color.rgb(46, 53, 76);
 
 	
 }

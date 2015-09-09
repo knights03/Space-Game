@@ -34,6 +34,7 @@ public class AsteroidCluster {
 					new Coord(	RandomGenerator.instance.getDouble(x2, x1),
 								RandomGenerator.instance.getDouble(y2, y1)), game, this);
 			} else {
+				
 			newAsteroid = new AsteroidTritonite(
 						new Coord(	RandomGenerator.instance.getDouble(x2, x1),
 									RandomGenerator.instance.getDouble(y2, y1)), game, this);
