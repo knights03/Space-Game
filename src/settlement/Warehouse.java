@@ -2,15 +2,15 @@ package settlement;
 
 import java.util.Hashtable;
 
+import cargo.Cargo;
 import cargo.CargoType;
 import game.Game;
 import javafx.scene.paint.Color;
 import util.GlobalVars;
 
-public class Warehouse extends Building {
+public class Warehouse extends Building implements Cargo {
 	
 	private double maxStorage;
-	private int employees;
 	
 	private Hashtable<CargoType, Double> cargo;
 
@@ -50,6 +50,26 @@ public class Warehouse extends Building {
 		double previousAmount = cargo.get(cargoType);
 		
 		cargo.put(cargoType, previousAmount - amountRetrieved);
+	}
+
+	@Override
+	public double getCapacity() {
+		// TODO Auto-generated method stub
+		return maxStorage;
+	}
+
+	@Override
+	public Hashtable<CargoType, Double> getCargo() {
+		// TODO Auto-generated method stub
+		return cargo;
+	}
+
+	@Override
+	public void unload(CargoType cargoType, double amount) {
+		double currentAmount = cargo.get(cargoType);
+		
+		cargo.put(cargoType, currentAmount - amount);
+		
 	}
 
 }

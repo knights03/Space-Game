@@ -72,7 +72,7 @@ public class Player implements Sprite, Combatant {
 		
 		
 		
-		ship = new Ship(ShipClasses.skidsteer, game);
+		ship = new Ship(ShipClasses.engineeringFrigate, game);
 		
 		
 		/*

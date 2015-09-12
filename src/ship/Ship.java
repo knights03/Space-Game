@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import cargo.Cargo;
 import cargo.CargoType;
 import cargo.NotEnoughSpace;
 import game.Game;
@@ -15,7 +16,7 @@ import javafx.scene.paint.Color;
 import mining.MiningTool;
 import weapon.LaserBlaster;
 
-public class Ship {
+public class Ship implements Cargo {
 	
 	/*
 	 * Stats:
@@ -212,6 +213,29 @@ public class Ship {
 		System.out.printf("Max cargo space: %d Space Remaining: %.1f", shipClass.getCargoLimit(), cargoSpaceRemaining);
 		
 		return amountLoaded;
+	}
+
+
+	@Override
+	public double getCapacity() {
+		// TODO Auto-generated method stub
+		return shipClass.getCargoLimit();
+	}
+
+
+	@Override
+	public Hashtable<CargoType, Double> getCargo() {
+		// TODO Auto-generated method stub
+		return cargoManifest;
+	}
+
+
+	@Override
+	public void unload(CargoType cargoType, double amount) {
+		double currentAmount = cargoManifest.get(cargoType);
+		
+		cargoManifest.put(cargoType, currentAmount - amount);
+		
 	}
 	
 	

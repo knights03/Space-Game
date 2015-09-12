@@ -8,7 +8,7 @@ public class ExchangeRates {
 	
 	public static double getValue(CargoType type) {
 		switch(type) {
-		case IRON:
+		case UIRON:
 			return IronRate;
 		}
 		return 0;

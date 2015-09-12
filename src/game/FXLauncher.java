@@ -175,8 +175,16 @@ public class FXLauncher extends Application {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				GlobalVars.CLICK_AREA_OPACITY = 100;
+				//GlobalVars.CLICK_AREA_OPACITY = 100;
 				// TODO Auto-generated method stub
+				
+				for(cargo.CargoType cargoType : cargo.CargoType.values()) {
+					double amount = game.getPlayer().getShip().getCargo().get(cargoType);
+					System.out.printf("%s: %.1f\n", cargoType, amount);
+				}
+				
+				
+				
 				//textNotifier.addText(String.format("%d", RandomGenerator.instance.getInt(10000)), RandomGenerator.instance.getColor());
 			}
 

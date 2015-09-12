@@ -1,5 +1,7 @@
 package mining;
 
+import java.util.Hashtable;
+
 import cargo.CargoType;
 import cargo.NotEnoughSpace;
 import game.Game;
@@ -34,7 +36,7 @@ public class AsteroidTritonite extends Asteroid implements Sprite {
 		
 		getSprite().setFill(GlobalVars.TRITONITE_ASTEROID_COLOR);
 
-		mineHandler(CargoType.TRITONITE);
+		mineHandler(CargoType.UTRITONITE);
 		
 		
 	}
@@ -43,6 +45,17 @@ public class AsteroidTritonite extends Asteroid implements Sprite {
 	public Node getMinimapIcon() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public Hashtable<CargoType, Double> getCargo() {
+		
+		Hashtable<CargoType, Double> cargo = new Hashtable<CargoType, Double>();
+		
+		cargo.put(CargoType.UTRITONITE, getYield());
+		
+		return cargo;
+		
 	}
 
 }

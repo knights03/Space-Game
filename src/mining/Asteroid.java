@@ -1,5 +1,8 @@
 package mining;
 
+import java.util.Hashtable;
+
+import cargo.Cargo;
 import cargo.CargoType;
 import game.Game;
 import game.Player;
@@ -18,7 +21,7 @@ import util.Calc;
 import util.GlobalVars;
 import util.RandomGenerator;
 
-public abstract class Asteroid implements Sprite {
+public abstract class Asteroid implements Sprite, Cargo {
 	
 	private double integrity;
 	private double yield;
@@ -175,8 +178,9 @@ public abstract class Asteroid implements Sprite {
 		
 		if(getIntegrity() <= 0) {
 			
-			getGame().removeNode(sprite);
-			getGame().getPlayer().getShip().loadCargo(cargoType, getYield());
+			//getGame().removeNode(sprite);
+			//getGame().getPlayer().getShip().loadCargo(cargoType, getYield());
+			getGame().loadCargo(cargoType, getYield(), this, getGame().getPlayer().getShip());
 		}
 	}
 
@@ -263,6 +267,20 @@ public abstract class Asteroid implements Sprite {
 			}
 
 		});
+	}
+	
+
+
+	@Override
+	public double getCapacity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void unload(CargoType cargoType, double amount) {
+		// TODO Auto-generated method stub
+		getGame().removeNode(sprite);
 	}
 
 }

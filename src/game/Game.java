@@ -6,6 +6,7 @@ import java.lang.annotation.Documented;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import cargo.Cargo;
 import cargo.CargoType;
 import cargo.NotEnoughSpace;
 import economy.Trade;
@@ -780,6 +781,30 @@ public class Game {
 		}
 		
 		return cargoTable;
+	}
+	
+	public void loadCargo(CargoType cargoType, double amount, Cargo source, Cargo target) {
+		double cargoSpaceRemaining = target.getCapacity();
+		
+		for(CargoType type : CargoType.values()) {
+			cargoSpaceRemaining -= target.getCargo().get(type);
+			System.out.printf("%s: %.1f", type, target.getCargo().get(type));
+		}
+		
+		double currentAmount = target.getCargo().get(cargoType);
+		
+		if(cargoSpaceRemaining >= amount) {
+			target.getCargo().put(cargoType, currentAmount + amount);
+			textNotifier.addText(String.format("%.1ft of %s loaded", amount, cargoType));
+		} else if(cargoSpaceRemaining > 0 && cargoSpaceRemaining < amount) {
+			target.getCargo().put(cargoType, currentAmount + cargoSpaceRemaining);
+			textNotifier.addText(String.format("Only %.1ft of %s could be loaded", cargoSpaceRemaining, cargoType), Color.ORANGE);
+		} else if(cargoSpaceRemaining <= 0) {
+			textNotifier.addText("Not enough space", Color.RED);
+		}
+		
+		source.unload(cargoType, amount);
+		
 	}
 	
 	
