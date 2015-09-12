@@ -4,7 +4,9 @@ package game;
 
 import java.lang.annotation.Documented;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
+import cargo.CargoType;
 import cargo.NotEnoughSpace;
 import economy.Trade;
 import faction.Faction;
@@ -767,6 +769,17 @@ public class Game {
 	 */
 	public void removeNode(Node node) {
 		worldGroup.getChildren().remove(node);
+	}
+	
+	public Hashtable<CargoType, Double> emptyCargoTable() {
+		
+		Hashtable<CargoType, Double> cargoTable = new Hashtable<CargoType, Double>();
+		
+		for(CargoType cargoType : CargoType.values()) {
+			cargoTable.put(cargoType, 0.0);
+		}
+		
+		return cargoTable;
 	}
 	
 	

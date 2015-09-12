@@ -49,5 +49,6 @@ public class GlobalVars {
 	
 	public static Color TRITONITE_ASTEROID_COLOR = Color.rgb(46, 53, 76);
 
+	public static double WAREHOUSE_LVL1_STORAGE = 3000;
 	
 }
