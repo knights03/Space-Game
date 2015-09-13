@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import cargo.NotEnoughSpace;
+import faction.Faction;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
@@ -27,9 +28,11 @@ import util.Calc;
 import util.RandomGenerator;
 import weapon.LaserBlaster;
 
-public class Player implements Sprite, Combatant {
+public class Player implements Sprite, Combatant, Dockable {
 	private String name;
-	private double speed;
+	private Faction faction;
+	
+	
 	
 	private Game game;
 
@@ -147,16 +150,16 @@ public class Player implements Sprite, Combatant {
 		this.name = name;
 	}
 
+	public Faction getFaction() {
+		return faction;
+	}
+
+	public void setFaction(Faction faction) {
+		this.faction = faction;
+	}
+
 	public Location getLocation() {
 		return location;
-	}
-
-	public double getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(double speed) {
-		this.speed = speed;
 	}
 
 	public void setLocation(Location location) {

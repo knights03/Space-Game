@@ -1,19 +1,26 @@
 package location;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import game.Game;
 import game.World;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 import particle.TorpedoBurst;
+import settlement.Settlement;
 import unit.Sprite;
 import util.Calc;
 import util.GlobalVars;
@@ -30,6 +37,8 @@ public class Planet extends Location {
 	private ImageView sprite;
 	private double size;
 	private Color color;
+	
+	private ArrayList<Settlement> settlements = new ArrayList<Settlement>();
 	
 	public Planet(Game game, World world) {
 		this.game = game;
@@ -72,17 +81,21 @@ public class Planet extends Location {
 				double newX = event.getSceneX()+(game.getPlayer().getLocation().getX()) - GlobalVars.MAIN_WINDOW_WIDTH/2;
 				double newY = event.getSceneY()+(game.getPlayer().getLocation().getY()) - GlobalVars.MAIN_WINDOW_HEIGHT/2;
 				
-				if(event.isControlDown() == false && event.isShiftDown() == false){
-					game.playerMove(event.getSceneX(), event.getSceneY());
-				} else if(event.isControlDown() == true) {
-					//game.getWorldGroup().getChildren().add(new LaserBurst(game.getPlayer(),
-					//		new Coord(newX, newY)).getSprite());
-					
-					game.getPlayer().fireLaser(game, newX, newY);
-				} else if(event.isShiftDown() == true) {
-					game.getWorldGroup().getChildren().add(new TorpedoBurst(game.getPlayer(),
-							new Coord(newX, newY)).getSprite());
-				}
+				/*if(event.isSecondaryButtonDown() == false) {
+					if(event.isControlDown() == false && event.isShiftDown() == false){
+						game.playerMove(event.getSceneX(), event.getSceneY());
+					} else if(event.isControlDown() == true) {
+						//game.getWorldGroup().getChildren().add(new LaserBurst(game.getPlayer(),
+						//		new Coord(newX, newY)).getSprite());
+
+						game.getPlayer().fireLaser(game, newX, newY);
+					} else if(event.isShiftDown() == true) {
+						game.getWorldGroup().getChildren().add(new TorpedoBurst(game.getPlayer(),
+								new Coord(newX, newY)).getSprite());
+					}
+				} else */
+					planetInfoWindow().show();
+				
 				
 			}
 			
@@ -149,6 +162,11 @@ public class Planet extends Location {
 		this.color = color;
 	}
 	
+	public void addSettlement(Settlement newSettlement) {
+		settlements.add(newSettlement);
+	}
+	
+	
 	@Override
 	public void setX(double x) {
 		super.setX(x);
@@ -185,6 +203,38 @@ public class Planet extends Location {
 	public Location getLocation() {
 		// TODO Auto-generated method stub
 		return this;
+	}
+	
+	
+	public Stage planetInfoWindow() {
+		Stage window = new Stage();
+		window.setTitle(name);
+		window.setHeight(GlobalVars.UNIT_INFO_WINDOW_HEIGHT);
+		window.setWidth(GlobalVars.UNIT_INFO_WINDOW_WIDTH);
+		
+		VBox settlementsBox = new VBox();
+		
+		Scene planetInfoScene = new Scene(settlementsBox);
+		
+		Label settlementsLabel = new Label("Settlements");
+		settlementsBox.getChildren().add(settlementsLabel);
+		
+		Button[] settlementsButtons = new Button[settlements.size()];
+		
+		for(int i = 0; i < settlements.size(); i++) {
+			
+			Settlement settlementI = settlements.get(i);
+			
+			settlementsButtons[i] = new Button(settlementI.getName());
+			settlementsButtons[i].setOnAction(event->
+				window.setScene(settlementI.infoWindow(window, planetInfoScene)));
+			
+			settlementsBox.getChildren().add(settlementsButtons[i]);
+		}
+		
+		window.setScene(planetInfoScene);
+		
+		return window;
 	}
 	
 }

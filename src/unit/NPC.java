@@ -3,6 +3,7 @@ package unit;
 import java.util.ArrayList;
 
 import faction.Faction;
+import game.Dockable;
 import game.Game;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
@@ -18,7 +19,7 @@ import ship.ShipClass;
 import util.Calc;
 import weapon.LaserBlaster;
 
-public class NPC implements Sprite, Combatant {
+public class NPC implements Sprite, Combatant, Dockable {
 	
 	
 	private String name;

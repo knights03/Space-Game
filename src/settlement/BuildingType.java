@@ -2,5 +2,5 @@ package settlement;
 
 public enum BuildingType {
 
-	MARKET, WAREHOUSE, FACTORY, HOUSING
+	MARKET, WAREHOUSE, FACTORY, HOUSING, STARPORT
 }

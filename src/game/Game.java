@@ -39,6 +39,7 @@ import location.Location;
 import location.Planet;
 import mining.Asteroid;
 import mining.AsteroidCluster;
+import settlement.Settlement;
 import ship.ShipClasses;
 import unit.*;
 import util.Calc;
@@ -310,6 +311,9 @@ public class Game {
 			worldGroup.getChildren().add(new BackgroundStar(this).getSprite());
 		}
 		
+		// Factions
+		Faction gbc = new Faction("Galactic Banking Corporation", Color.ORANGE, Color.BLUE);
+		
 		
 		// Test planet
 		Planet tavistock = new Planet("Tavistock", this, world);
@@ -340,7 +344,6 @@ public class Game {
 
 		// Add the player
 		player.setLocation(new Coord(1250, 9000));
-		player.setSpeed(300);
 		
 		try {
 			player.getShip().equipItem(GameItems.class1DefensePulsor);

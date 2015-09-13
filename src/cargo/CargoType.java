@@ -1,5 +1,19 @@
 package cargo;
 
 public enum CargoType {
-	UIRON, IRON, UTRITONITE, TRITONITE
+	UIRON("Iron (U)"),
+	IRON("Iron"),
+	UTRITONITE("Tritonite (U)"),
+	TRITONITE("Tritonite");
+	
+	private String name;
+	
+	private CargoType(String name) {
+		this.name = name;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

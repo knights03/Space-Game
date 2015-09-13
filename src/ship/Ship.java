@@ -182,39 +182,6 @@ public class Ship implements Cargo {
 	}
 
 
-	public double loadCargo(CargoType cargoType, double amount) {
-		
-		double cargoSpaceRemaining = shipClass.getCargoLimit();
-		
-		double amountLoaded = 0;
-		
-		for(CargoType type : CargoType.values()) {
-			cargoSpaceRemaining -= cargoManifest.get(type);
-			System.out.printf("%s: %.1f", type, cargoManifest.get(type));
-		}
-		
-		double currentAmount = cargoManifest.get(cargoType);
-		
-		if(cargoSpaceRemaining >= amount) {
-			cargoManifest.put(cargoType, currentAmount + amount);
-			game.getTextNotifier().addText(String.format("%.1ft of %s loaded", amount, cargoType));
-			amountLoaded = amount;
-		} else if(cargoSpaceRemaining > 0 && cargoSpaceRemaining < amount) {
-			cargoManifest.put(cargoType, currentAmount + cargoSpaceRemaining);
-			game.getTextNotifier().addText(String.format("Only %.1ft of %s could be loaded", cargoSpaceRemaining, cargoType), Color.ORANGE);
-			amountLoaded = cargoSpaceRemaining;
-		} else if(cargoSpaceRemaining <= 0) {
-			game.getTextNotifier().addText("Not enough space in cargo bay", Color.RED);
-			amountLoaded = 0;
-		}
-		
-		//System.out.println(cargoSpaceRemaining);
-		
-		System.out.printf("Max cargo space: %d Space Remaining: %.1f", shipClass.getCargoLimit(), cargoSpaceRemaining);
-		
-		return amountLoaded;
-	}
-
 
 	@Override
 	public double getCapacity() {
