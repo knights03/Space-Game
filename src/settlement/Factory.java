@@ -8,6 +8,8 @@ public class Factory extends Building {
 	
 	private int employees;
 	
+	private int maxMachines;
+	
 	private ArrayList<Machinery> machinery;
 
 	public Factory(String name, Game game) {
