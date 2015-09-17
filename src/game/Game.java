@@ -37,9 +37,13 @@ import javafx.util.Duration;
 import location.Coord;
 import location.Location;
 import location.Planet;
+import machinery.Machinery;
+import machinery.Smelter;
 import mining.Asteroid;
 import mining.AsteroidCluster;
+import settlement.Factory;
 import settlement.Settlement;
+import settlement.Warehouse;
 import ship.ShipClasses;
 import unit.*;
 import util.Calc;
@@ -320,6 +324,20 @@ public class Game {
 		tavistock.setX(1500);
 		tavistock.setY(10000);
 		tavistock.setSize(3);
+		
+		Settlement settlement = new Settlement("Mos Eisley", gbc, tavistock);
+		
+		Warehouse warehouse = new Warehouse("Tavistock Warehouse", settlement);
+		Factory factory = new Factory("Tavistock Manufacturing Plant", settlement, warehouse);
+		Smelter smelter = new Smelter("Type-4 Ion Furnace", 10, 1);
+		
+		tavistock.addSettlement(settlement);
+		settlement.addBuilding(warehouse);
+		settlement.addBuilding(factory);
+		factory.addMachinery(smelter);
+		
+		smelter.addToHopper(CargoType.IRON, 100);
+		smelter.operate();
 		
 		Planet davenport = new Planet("Davenport", this, world);
 		davenport.setX(3000);

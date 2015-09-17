@@ -237,4 +237,8 @@ public class Planet extends Location {
 		return window;
 	}
 	
+	public Game getGame() {
+		return game;
+	}
+	
 }

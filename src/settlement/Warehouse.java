@@ -14,11 +14,11 @@ public class Warehouse extends Building implements Cargo {
 	
 	private Hashtable<CargoType, Double> cargo;
 
-	public Warehouse(String name, Game game) {
-		super(name, BuildingType.WAREHOUSE, game);
+	public Warehouse(String name, Settlement settlement) {
+		super(name, BuildingType.WAREHOUSE, settlement);
 		maxStorage = GlobalVars.WAREHOUSE_LVL1_STORAGE;
 		
-		cargo = getGame().emptyCargoTable();
+		cargo = getSettlement().getPlanet().getGame().emptyCargoTable();
 	}
 	
 

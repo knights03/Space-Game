@@ -8,20 +8,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import location.Planet;
 
 public class Settlement {
 	
 	private String name;
 	private int population;
+	private Planet planet;
 	
 	private Faction faction;
 	
-	private ArrayList<Building> buildings;
+	private ArrayList<Building> buildings = new ArrayList<Building>();
 	
-	public Settlement(String name, Faction faction) {
+	public Settlement(String name, Faction faction, Planet planet) {
 		this.name = name;
 		this.faction = faction;
 		this.population = 0;
+		this.planet = planet;
 	}
 
 	
@@ -39,5 +42,13 @@ public class Settlement {
 		infoWindowBox.getChildren().addAll(settlementInfoTitle, goBack);
 		
 		return new Scene(infoWindowBox);
+	}
+	
+	public void addBuilding(Building building) {
+		buildings.add(building);
+	}
+	
+	public Planet getPlanet() {
+		return planet;
 	}
 }

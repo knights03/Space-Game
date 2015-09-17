@@ -6,19 +6,19 @@ public abstract class Building {
 	
 	private String name;
 	private BuildingType buildingType;
-	
-	private Game game;
+		
+	private Settlement settlement;
 	
 	private int level;
 	
-	public Building(String name, BuildingType buildingType, Game game) {
+	public Building(String name, BuildingType buildingType, Settlement settlement) {
 		this.name = name;
 		this.buildingType = buildingType;
-		this.game = game;
+		this.settlement = settlement;
 	}
 	
-	public Game getGame() {
-		return game;
+	public Settlement getSettlement() {
+		return settlement;
 	}
 
 }

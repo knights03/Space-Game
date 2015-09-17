@@ -11,8 +11,8 @@ public class Starport extends Building {
 	
 	private ArrayList<Dockable> dockedShips = new ArrayList<Dockable>();
 
-	public Starport(String name, Game game) {
-		super(name, BuildingType.STARPORT, game);
+	public Starport(String name, Settlement settlement) {
+		super(name, BuildingType.STARPORT, settlement);
 	}
 	
 	public void dockShip(Dockable ship) {

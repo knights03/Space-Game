@@ -1,4 +1,4 @@
-package settlement;
+package machinery;
 
 public enum MachineryType {
 	
